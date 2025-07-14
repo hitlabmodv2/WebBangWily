@@ -1175,12 +1175,20 @@
           this.audio.remove();
         }
 
-        // Create new audio element
+        // Create new audio element with better compatibility
         this.audio = document.createElement('audio');
         this.audio.id = 'dynamic-audio';
-        this.audio.preload = 'none';
+        this.audio.preload = 'metadata';
         this.audio.volume = 0.5;
         this.audio.crossOrigin = 'anonymous';
+        this.audio.setAttribute('playsinline', '');
+        this.audio.setAttribute('webkit-playsinline', '');
+        
+        // Better mobile support
+        if (navigator.userAgent.match(/iPhone|iPad|iPod|Android/i)) {
+          this.audio.muted = true; // Start muted for mobile autoplay
+        }
+        
         document.body.appendChild(this.audio);
       }
 
@@ -1235,11 +1243,46 @@
       }
 
       showError(message) {
-        document.getElementById('track-name').textContent = 'Error';
-        document.getElementById('track-artist').textContent = message;
-        this.playBtn.textContent = "❌";
+        document.getElementById('track-name').textContent = message;
+        
+        // Platform-specific messages
+        const platform = this.detectPlatform();
+        let artistMessage = '';
+        
+        if (message.includes('Klik untuk memutar')) {
+          switch(platform) {
+            case 'vercel':
+              artistMessage = 'Vercel memblokir autoplay - Klik tombol play';
+              break;
+            case 'mobile':
+              artistMessage = 'Mobile browser - Tap untuk memutar';
+              break;
+            default:
+              artistMessage = 'Browser memblokir autoplay - Klik untuk mulai';
+          }
+        } else {
+          artistMessage = message;
+        }
+        
+        document.getElementById('track-artist').textContent = artistMessage;
+        this.playBtn.textContent = "▶️";
         this.isPlaying = false;
         document.getElementById('music-animation').classList.remove('playing');
+      }
+
+      detectPlatform() {
+        const hostname = window.location.hostname;
+        const userAgent = navigator.userAgent;
+        
+        if (hostname.includes('vercel.app') || hostname.includes('vercel.com')) {
+          return 'vercel';
+        } else if (hostname.includes('replit.') || hostname.includes('repl.')) {
+          return 'replit';
+        } else if (userAgent.match(/iPhone|iPad|iPod|Android/i)) {
+          return 'mobile';
+        } else {
+          return 'desktop';
+        }
       }
 
       handleAudioError() {
@@ -1289,10 +1332,15 @@
             throw new Error('Audio not ready');
           }
 
-          // Ensure audio is loaded
+          // Unmute if was muted for autoplay
+          if (this.audio.muted) {
+            this.audio.muted = false;
+          }
+
+          // Wait for audio to be ready
           if (this.audio.readyState < 2) {
             console.log('Menunggu audio siap...');
-            return;
+            await this.waitForAudioReady();
           }
 
           const playPromise = this.audio.play();
@@ -1314,10 +1362,42 @@
 
           if (error.name === 'NotAllowedError') {
             this.showError('Klik untuk memutar audio');
+          } else if (error.name === 'NotSupportedError') {
+            this.showError('Format audio tidak didukung');
           } else {
             this.showError('Tidak dapat memutar');
           }
         }
+      }
+
+      waitForAudioReady() {
+        return new Promise((resolve, reject) => {
+          if (this.audio.readyState >= 2) {
+            resolve();
+            return;
+          }
+
+          let timeout = setTimeout(() => {
+            reject(new Error('Audio load timeout'));
+          }, 10000);
+
+          const onCanPlay = () => {
+            clearTimeout(timeout);
+            this.audio.removeEventListener('canplaythrough', onCanPlay);
+            this.audio.removeEventListener('error', onError);
+            resolve();
+          };
+
+          const onError = () => {
+            clearTimeout(timeout);
+            this.audio.removeEventListener('canplaythrough', onCanPlay);
+            this.audio.removeEventListener('error', onError);
+            reject(new Error('Audio load failed'));
+          };
+
+          this.audio.addEventListener('canplaythrough', onCanPlay);
+          this.audio.addEventListener('error', onError);
+        });
       }
 
       pause() {
@@ -1481,48 +1561,60 @@
     // Initialize audio players
     let audioPlayer;
 
-    // Auto-initialize audio player and start playing on page load
-    document.addEventListener('DOMContentLoaded', function() {
-      // Small delay to ensure everything is loaded
-      setTimeout(() => {
-        try {
-          if (!audioPlayer) {
-            audioPlayer = new RobustAudioPlayer();
-            console.log('Audio player auto-initialized');
-            
-            // Auto play after initialization
-            setTimeout(() => {
-              if (audioPlayer && audioPlayer.isInitialized) {
-                audioPlayer.play().catch(error => {
-                  console.log('Autoplay blocked, waiting for user interaction');
-                  // Fallback: wait for any user interaction
-                  document.addEventListener('click', function() {
-                    audioPlayer.play().catch(console.error);
-                  }, { once: true });
-                });
-              }
-            }, 500);
-          }
-        } catch (error) {
-          console.error('Failed to auto-initialize audio player:', error);
+    // Universal autoplay handler for all platforms
+    let autoplayAttempted = false;
+    
+    function attemptAutoplay() {
+      if (autoplayAttempted) return;
+      autoplayAttempted = true;
+      
+      try {
+        if (!audioPlayer) {
+          audioPlayer = new RobustAudioPlayer();
+          console.log('Audio player initialized');
+          
+          // Try autoplay immediately
+          setTimeout(() => {
+            if (audioPlayer && audioPlayer.isInitialized) {
+              audioPlayer.play().then(() => {
+                console.log('Autoplay berhasil');
+              }).catch(error => {
+                console.log('Autoplay diblokir, menunggu interaksi user');
+                // Show friendly message
+                document.getElementById('track-name').textContent = 'Klik untuk memutar musik';
+                document.getElementById('track-artist').textContent = 'Autoplay diblokir browser';
+              });
+            }
+          }, 300);
         }
-      }, 1000);
+      } catch (error) {
+        console.error('Audio initialization error:', error);
+      }
+    }
+
+    // Try autoplay on various events
+    document.addEventListener('DOMContentLoaded', attemptAutoplay);
+    
+    // Fallback for user interaction
+    ['click', 'touchstart', 'keydown', 'mouseover'].forEach(event => {
+      document.addEventListener(event, function() {
+        if (!audioPlayer || !audioPlayer.isPlaying) {
+          attemptAutoplay();
+          if (audioPlayer && audioPlayer.isInitialized) {
+            audioPlayer.play().catch(console.error);
+          }
+        }
+      }, { once: true });
     });
 
-    // Backup: Wait for user interaction if autoplay fails
-    document.addEventListener('click', function initAudio() {
-      if (!audioPlayer) {
-        try {
-          audioPlayer = new RobustAudioPlayer();
-          console.log('Audio player initialized after user interaction');
-          setTimeout(() => {
-            audioPlayer.play().catch(console.error);
-          }, 300);
-        } catch (error) {
-          console.error('Failed to initialize audio player:', error);
-        }
+    // Page visibility change handler
+    document.addEventListener('visibilitychange', function() {
+      if (!document.hidden && audioPlayer && !audioPlayer.isPlaying) {
+        audioPlayer.play().catch(() => {
+          console.log('Autoplay blocked after visibility change');
+        });
       }
-    }, { once: true });
+    });
 
     // Global functions for UI
     function toggleMusic() {
