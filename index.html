@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>kennzy</title>
+  <title>BangWily</title>
   <style>
     :root {
       --bg-color: #1a1a1a;
@@ -140,32 +140,41 @@
       margin: 25px auto 15px;
       background: linear-gradient(135deg, var(--card-color), rgba(255, 255, 255, 0.05));
       border-radius: 20px;
-      padding: 25px;
+      padding: 20px;
       border: 2px solid var(--gray-bar);
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
       backdrop-filter: blur(10px);
+      max-width: 100%;
     }
 
     .music-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
+      text-align: center;
+      margin-bottom: 15px;
     }
 
     .music-title {
       font-size: 16px;
       font-weight: 700;
       color: var(--text-color);
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
 
     .music-controls {
       display: flex;
-      gap: 8px;
+      gap: 10px;
       align-items: center;
+      justify-content: center;
+      margin: 15px 0;
+    }
+
+    @media (max-width: 480px) {
+      .music-player {
+        padding: 15px;
+        margin: 20px auto 10px;
+      }
+      
+      .music-controls {
+        gap: 8px;
+      }
     }
 
     .music-btn {
@@ -221,6 +230,90 @@
     .music-control-btn.shuffle-active {
       background: linear-gradient(135deg, #ff6b6b, #ee5a52);
       color: white;
+    }
+
+    .volume-control {
+      margin: 15px 0;
+    }
+
+    .volume-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      border: 1px solid var(--gray-bar);
+    }
+
+    .volume-icon {
+      font-size: 16px;
+      min-width: 20px;
+    }
+
+    .volume-slider {
+      flex: 1;
+      max-width: 120px;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+      outline: none;
+      cursor: pointer;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .volume-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      background: linear-gradient(135deg, #1db954, #1ed760);
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(29, 185, 84, 0.3);
+    }
+
+    .volume-slider::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      background: linear-gradient(135deg, #1db954, #1ed760);
+      border-radius: 50%;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 2px 8px rgba(29, 185, 84, 0.3);
+    }
+
+    .volume-value {
+      font-size: 12px;
+      color: var(--subtext-color);
+      min-width: 35px;
+      text-align: right;
+      font-weight: 600;
+    }
+
+    @media (max-width: 480px) {
+      .music-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 14px;
+      }
+      
+      .music-control-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 12px;
+      }
+      
+      .volume-container {
+        gap: 8px;
+        padding: 8px;
+      }
+      
+      .volume-slider {
+        max-width: 100px;
+      }
     }
 
     .music-info {
@@ -407,20 +500,70 @@
     }
 
     .spoiler-content.open {
-      max-height: 200px;
+      max-height: 400px;
       padding: 20px;
       border: 2px solid var(--gray-bar);
       border-top: none;
+      overflow-y: auto;
     }
 
     .spoiler-info {
       font-size: 13px;
       color: var(--subtext-color);
-      line-height: 1.6;
+      line-height: 1.7;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      white-space: normal;
     }
 
     .spoiler-info strong {
       color: var(--text-color);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .spoiler-info br {
+      line-height: 2;
+    }
+
+    @media (max-width: 480px) {
+      .spoiler-content.open {
+        max-height: 450px;
+        padding: 18px;
+        overflow-y: auto;
+      }
+      
+      .spoiler-info {
+        font-size: 12px;
+        line-height: 1.8;
+      }
+      
+      .spoiler-header {
+        padding: 14px 16px;
+        font-size: 13px;
+      }
+      
+      .container {
+        padding: 25px 20px;
+        width: 95%;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .spoiler-content.open {
+        max-height: 500px;
+        padding: 16px;
+      }
+      
+      .spoiler-info {
+        font-size: 11px;
+        line-height: 1.9;
+      }
+      
+      .spoiler-header {
+        padding: 12px 14px;
+        font-size: 12px;
+      }
     }
 
     .stats-grid {
@@ -493,7 +636,7 @@
   <div class="container">
     <button class="toggle-theme" onclick="toggleTheme()">🌗</button>
 
-    <img src="https://files.catbox.moe/g8e37p.jpg" alt="Foto Profil" class="profile" />
+    <img src="https://files.catbox.moe/zrezka.jpg" alt="Foto Profil" class="profile" />
     <h1>Bang Wily</h1>
     <p class="role">Creative Content Creator | Digital Entrepreneur</p>
     <div class="typing-text" id="typing"></div>
@@ -501,13 +644,13 @@
     <div class="music-player">
       <div class="music-header">
         <div class="music-title">🎵 Music Player</div>
-        <div class="music-controls">
-          <button class="music-control-btn" onclick="previousTrack()">⏮️</button>
-          <button class="music-btn" onclick="toggleMusic()">▶️</button>
-          <button class="music-control-btn" onclick="nextTrack()">⏭️</button>
-          <button class="music-control-btn" onclick="toggleShuffle()">🔀</button>
-        </div>
       </div>
+      
+      <div class="music-info">
+        <div class="track-name" id="track-name">Relaxing Background Music</div>
+        <div class="track-artist" id="track-artist">Ambient Collection</div>
+      </div>
+
       <div class="music-animation" id="music-animation">
         <div class="music-bar"></div>
         <div class="music-bar"></div>
@@ -515,10 +658,22 @@
         <div class="music-bar"></div>
         <div class="music-bar"></div>
       </div>
-      <div class="music-info">
-        <div class="track-name" id="track-name">Relaxing Background Music</div>
-        <div class="track-artist" id="track-artist">Ambient Collection</div>
+      
+      <div class="music-controls">
+        <button class="music-control-btn" onclick="previousTrack()">⏮️</button>
+        <button class="music-btn" onclick="toggleMusic()">▶️</button>
+        <button class="music-control-btn" onclick="nextTrack()">⏭️</button>
+        <button class="music-control-btn" onclick="toggleShuffle()">🔀</button>
       </div>
+      
+      <div class="volume-control">
+        <div class="volume-container">
+          <span class="volume-icon">🔊</span>
+          <input type="range" class="volume-slider" id="volume-slider" min="0" max="100" value="50">
+          <span class="volume-value" id="volume-value">50%</span>
+        </div>
+      </div>
+      
       <div class="music-progress">
         <div class="progress-bar" id="progress-bar">
           <div class="progress-fill" id="progress-fill"></div>
@@ -535,63 +690,68 @@
       <div class="spoiler-content" id="whatsapp-content">
         <div class="spoiler-info">
           <strong>💬 Chat Langsung dengan Kenn!</strong><br>
-          📞 Nomor: +62 831-6864-0760<br>
+          📞 Nomor: +62 896-8820-6739<br>
           🕐 Online: 08:00 - 22:00 WIB<br>
-          💼 Untuk konsultasi bot & panel<br>
-          <a href="https://wa.me/6283168640760" target="_blank" style="color: #25d366; text-decoration: none; font-weight: bold;">➤ Buka WhatsApp</a>
+          💻 Hobi coding & programming<br>
+          🤖 Developer bot WhatsApp<br>
+          💼 Konsultasi script & automation<br>
+          <a href="https://wa.me/6289688206739" target="_blank" style="color: #25d366; text-decoration: none; font-weight: bold;">➤ Buka WhatsApp</a>
         </div>
       </div>
     </div>
 
     <div class="spoiler-container">
       <div class="spoiler-header" onclick="toggleSpoiler('wachannel')">
-        <span>📢 WhatsApp Channel</span>
+        <span>📢 Info Seputar Anime Dll 👤</span>
         <span class="spoiler-arrow" id="wachannel-arrow">▼</span>
       </div>
       <div class="spoiler-content" id="wachannel-content">
         <div class="spoiler-info">
-          <strong>📡 Channel Resmi Kenn!</strong><br>
-          📰 Update terbaru tentang project<br>
-          🆕 Announcements & News<br>
-          🎁 Promo & Discount khusus<br>
-          📊 Tips & Tricks developer<br>
-          <a href="https://whatsapp.com/channel/0029Vb5eutw5fM5epF3U0X20" target="_blank" style="color: #25d366; text-decoration: none; font-weight: bold;">➤ Join Channel</a>
+          <strong>📡 Channel Info Anime & Entertainment!</strong><br>
+          🎌 Update anime terbaru & review<br>
+          📺 Rekomendasi anime seasonal<br>
+          🎭 Info seputar budaya Jepang<br>
+          📰 Berita entertainment Asia<br>
+          🎵 Update J-Pop & soundtrack anime<br>
+          <a href="https://www.whatsapp.com/channel/0029VaiyhS37IUYSuDJoJj1L" target="_blank" style="color: #25d366; text-decoration: none; font-weight: bold;">➤ Join Channel</a>
         </div>
       </div>
     </div>
 
     <div class="spoiler-container">
       <div class="spoiler-header" onclick="toggleSpoiler('whatsappgroup')">
-        <span>👥 WhatsApp Grup</span>
+        <span>👥 GRUP AUTO BACA STORY [V-2] ✅</span>
         <span class="spoiler-arrow" id="whatsappgroup-arrow">▼</span>
       </div>
       <div class="spoiler-content" id="whatsappgroup-content">
         <div class="spoiler-info">
-          <strong>👥 Join Grup WhatsApp!</strong><br>
-          🎯 Komunitas developer Indonesia<br>
-          💡 Share tips & tricks coding<br>
-          🤝 Networking & collaboration<br>
-          📢 Update terbaru project<br>
-          🎁 Bonus script & tools gratis<br>
-          <a href="https://chat.whatsapp.com/invite-link" target="_blank" style="color: #25d366; text-decoration: none; font-weight: bold;">➤ Join Grup WhatsApp</a>
+          <strong>👥 Gabung Grup Script Auto Story!</strong><br>
+          🤖 Bagikan script bot auto reaction story<br>
+          📱 Tutorial auto baca & react story WA<br>
+          ⚡ Tools bot automation WhatsApp<br>
+          🔧 Update script terbaru & perbaikan<br>
+          💎 Script premium & download gratis<br>
+          🎯 Komunitas penggemar auto story<br>
+          <a href="https://chat.whatsapp.com/KfQ6UV17agpLuqHGTOeh9g" target="_blank" style="color: #25d366; text-decoration: none; font-weight: bold;">➤ Gabung Grup WhatsApp</a>
         </div>
       </div>
     </div>
 
     <div class="spoiler-container">
       <div class="spoiler-header" onclick="toggleSpoiler('download')">
-        <span>📥 Download Script Bot</span>
+        <span>📥 Download Script Bot Gratis</span>
         <span class="spoiler-arrow" id="download-arrow">▼</span>
       </div>
       <div class="spoiler-content" id="download-content">
         <div class="spoiler-info">
-          <strong>🤖 Download Script Bot Gratis!</strong><br>
-          ⚡ Bot WhatsApp Multi-Device<br>
-          🛠️ Fitur lengkap & customizable<br>
-          📚 Dokumentasi & tutorial<br>
-          🔄 Update rutin & support<br>
-          💎 Source code terbaru<br>
-          <a href="https://github.com/kennvxy/bot-script" target="_blank" style="color: #6f42c1; text-decoration: none; font-weight: bold;">➤ Download Script</a>
+          <strong>🤖 Download Script Auto Reaction Story!</strong><br>
+          ⚡ Auto reaction story WhatsApp otomatis<br>
+          📱 Auto baca story dengan emoji kustom<br>
+          🎯 Target kontak & grup tertentu<br>
+          ⏰ Jadwal waktu auto reaction<br>
+          🔧 Setup mudah & konfigurasi simple<br>
+          💎 Source code lengkap disertakan<br>
+          <a href="https://pastebin.com/PzHNZVJB" target="_blank" style="color: #6f42c1; text-decoration: none; font-weight: bold;">➤ Download Script</a>
         </div>
       </div>
     </div>
@@ -633,7 +793,7 @@
     
     <div class="time" id="time"></div>
 
-    <footer>© 2025 Kenn • All rights reserved.</footer>
+    <footer>© 2025 BangWily • All rights reserved.</footer>
   </div>
 
   <audio id="bg-music">
@@ -646,9 +806,11 @@
     const playBtn = document.querySelector(".music-btn");
     const typing = document.getElementById("typing");
     const texts = [
-      "Halo everyone, I'm kenn age: 12 years...",
-      "Butuh bot/panel? Langsung chat yaa~",
-      "Jasa install panel & dll, info selengkapnya follow my ch."
+      "🤖 Script Bot WhatsApp GRATIS tersedia disini!",
+      "⚡ Auto Reaction Story dengan fitur canggih & mudah digunakan",
+      "🎯 Download script premium tanpa bayar, join grup sekarang!",
+      "🔥 Bot automation terlengkap - Auto read, react, dan banyak lagi",
+      "💎 Source code berkualitas tinggi untuk semua kebutuhan bot"
     ];
     let typingIndex = 0;
     let charIndex = 0;
@@ -794,6 +956,34 @@
 
     // Initialize first track
     loadTrack(currentTrack);
+
+    // Volume control functionality
+    const volumeSlider = document.getElementById('volume-slider');
+    const volumeValue = document.getElementById('volume-value');
+
+    function updateVolume() {
+      const volume = volumeSlider.value / 100;
+      audio.volume = volume;
+      volumeValue.textContent = volumeSlider.value + '%';
+      
+      // Update volume icon based on level
+      const volumeIcon = document.querySelector('.volume-icon');
+      if (volume === 0) {
+        volumeIcon.textContent = '🔇';
+      } else if (volume < 0.3) {
+        volumeIcon.textContent = '🔈';
+      } else if (volume < 0.7) {
+        volumeIcon.textContent = '🔉';
+      } else {
+        volumeIcon.textContent = '🔊';
+      }
+    }
+
+    volumeSlider.addEventListener('input', updateVolume);
+    
+    // Set initial volume
+    audio.volume = 0.5;
+    updateVolume();
 
     function updateTime() {
       const now = new Date();
