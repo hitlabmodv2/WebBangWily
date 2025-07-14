@@ -1561,59 +1561,27 @@
     // Initialize audio players
     let audioPlayer;
 
-    // Universal autoplay handler for all platforms
-    let autoplayAttempted = false;
-    
-    function attemptAutoplay() {
-      if (autoplayAttempted) return;
-      autoplayAttempted = true;
-      
-      try {
-        if (!audioPlayer) {
-          audioPlayer = new RobustAudioPlayer();
-          console.log('Audio player initialized');
-          
-          // Try autoplay immediately
-          setTimeout(() => {
-            if (audioPlayer && audioPlayer.isInitialized) {
-              audioPlayer.play().then(() => {
-                console.log('Autoplay berhasil');
-              }).catch(error => {
-                console.log('Autoplay diblokir, menunggu interaksi user');
-                // Show friendly message
-                document.getElementById('track-name').textContent = 'Klik untuk memutar musik';
-                document.getElementById('track-artist').textContent = 'Autoplay diblokir browser';
-              });
-            }
-          }, 300);
-        }
-      } catch (error) {
-        console.error('Audio initialization error:', error);
+    // Initialize audio player without autoplay
+    function initializeAudioPlayer() {
+      if (!audioPlayer) {
+        audioPlayer = new RobustAudioPlayer();
+        console.log('Audio player initialized');
+        // Set default display message
+        document.getElementById('track-name').textContent = 'Klik untuk memutar musik';
+        document.getElementById('track-artist').textContent = 'Tekan tombol play untuk memulai';
       }
     }
 
-    // Try autoplay on various events
-    document.addEventListener('DOMContentLoaded', attemptAutoplay);
-    
-    // Fallback for user interaction
-    ['click', 'touchstart', 'keydown', 'mouseover'].forEach(event => {
-      document.addEventListener(event, function() {
-        if (!audioPlayer || !audioPlayer.isPlaying) {
-          attemptAutoplay();
-          if (audioPlayer && audioPlayer.isInitialized) {
-            audioPlayer.play().catch(console.error);
-          }
-        }
-      }, { once: true });
+    // Initialize on page load without autoplay
+    document.addEventListener('DOMContentLoaded', function() {
+      initializeAudioPlayer();
     });
 
-    // Page visibility change handler
-    document.addEventListener('visibilitychange', function() {
-      if (!document.hidden && audioPlayer && !audioPlayer.isPlaying) {
-        audioPlayer.play().catch(() => {
-          console.log('Autoplay blocked after visibility change');
-        });
-      }
+    // Initialize player on first user interaction (without autoplay)
+    ['click', 'touchstart', 'keydown'].forEach(event => {
+      document.addEventListener(event, function() {
+        initializeAudioPlayer();
+      }, { once: true });
     });
 
     // Global functions for UI
