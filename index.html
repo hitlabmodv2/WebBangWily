@@ -1,0 +1,898 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>kennzy</title>
+  <style>
+    :root {
+      --bg-color: #1a1a1a;
+      --card-color: rgba(40, 40, 40, 0.7);
+      --text-color: #e5e5e5;
+      --subtext-color: #a3a3a3;
+      --button-color: #444;
+      --button-hover: #606060;
+      --gray-bar: #999;
+    }
+
+    [data-theme="light"] {
+      --bg-color: #f4f4f4;
+      --card-color: #ffffffcc;
+      --text-color: #1a1a1a;
+      --subtext-color: #444;
+      --button-color: #e0e0e0;
+      --button-hover: #cfcfcf;
+      --gray-bar: #888;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg-color);
+      background-image: url('https://files.catbox.moe/zrezka.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: var(--text-color);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.5s, color 0.5s;
+    }
+
+    .container {
+      background: rgba(20, 20, 20, 0.75);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 25px;
+      padding: 30px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      animation: fadeIn 1.5s ease-in-out;
+      position: relative;
+    }
+
+    [data-theme="light"] .container {
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(8px);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    img.profile {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--gray-bar);
+      margin-bottom: 15px;
+    }
+
+    h1 {
+      font-size: 26px;
+      margin-bottom: 5px;
+    }
+
+    p.role {
+      color: var(--subtext-color);
+      margin-bottom: 10px;
+    }
+
+    .typing-text {
+      font-size: 13px;
+      color: var(--subtext-color);
+      height: 18px;
+      margin-bottom: 20px;
+    }
+
+    .bio-link {
+      background: linear-gradient(135deg, var(--button-color), var(--button-hover));
+      padding: 15px 20px;
+      margin: 12px 0;
+      border-radius: 15px;
+      color: var(--text-color);
+      display: block;
+      text-decoration: none;
+      transition: all 0.4s ease;
+      font-weight: 500;
+      border: 2px solid transparent;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bio-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.5s;
+    }
+
+    .bio-link:hover::before {
+      left: 100%;
+    }
+
+    .bio-link:hover {
+      background: linear-gradient(135deg, var(--button-hover), #7a7a7a);
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      border-color: var(--gray-bar);
+    }
+
+    .music-player {
+      margin: 25px auto 15px;
+      background: linear-gradient(135deg, var(--card-color), rgba(255, 255, 255, 0.05));
+      border-radius: 20px;
+      padding: 25px;
+      border: 2px solid var(--gray-bar);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+    }
+
+    .music-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .music-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .music-controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .music-btn {
+      background: linear-gradient(135deg, #1db954, #1ed760);
+      color: white;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(29, 185, 84, 0.3);
+      font-size: 16px;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .music-btn:hover {
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 6px 20px rgba(29, 185, 84, 0.4);
+      background: linear-gradient(135deg, #1ed760, #1db954);
+    }
+
+    .music-btn:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    .music-control-btn {
+      background: var(--button-color);
+      color: var(--text-color);
+      border: none;
+      padding: 8px 12px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 14px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .music-control-btn:hover {
+      background: var(--button-hover);
+      transform: translateY(-1px) scale(1.05);
+    }
+
+    .music-control-btn.shuffle-active {
+      background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+      color: white;
+    }
+
+    .music-info {
+      text-align: center;
+      margin: 15px 0;
+    }
+
+    .track-name {
+      font-size: 14px;
+      color: var(--text-color);
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .track-artist {
+      font-size: 12px;
+      color: var(--subtext-color);
+    }
+
+    .music-progress {
+      margin-top: 15px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-bottom: 8px;
+      cursor: pointer;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #1db954, #1ed760);
+      width: 0%;
+      transition: width 0.1s ease;
+    }
+
+    .music-time {
+      font-size: 12px;
+      color: var(--subtext-color);
+      font-weight: 500;
+      text-align: center;
+    }
+
+    .music-animation {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      margin: 10px 0;
+    }
+
+    .music-animation.playing {
+      display: flex;
+    }
+
+    .music-bar {
+      width: 3px;
+      height: 20px;
+      background: linear-gradient(to top, #ff6b6b, #ff9800);
+      margin: 0 2px;
+      animation: musicBounce 1s ease-in-out infinite;
+      border-radius: 3px;
+    }
+
+    .music-bar:nth-child(2) { animation-delay: 0.1s; }
+    .music-bar:nth-child(3) { animation-delay: 0.2s; }
+    .music-bar:nth-child(4) { animation-delay: 0.3s; }
+    .music-bar:nth-child(5) { animation-delay: 0.4s; }
+
+    @keyframes musicBounce {
+      0%, 100% { transform: scaleY(0.3); }
+      50% { transform: scaleY(1); }
+    }
+
+    .time {
+      font-size: 24px;
+      margin-top: 20px;
+      color: var(--text-color);
+      font-weight: 700;
+      text-align: center;
+      background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+      background-size: 400% 400%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 3s ease-in-out infinite;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .toggle-theme {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: var(--button-color);
+      border: 2px solid var(--gray-bar);
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      font-size: 18px;
+      color: var(--text-color);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .toggle-theme:hover {
+      transform: rotate(180deg) scale(1.1);
+      background: var(--button-hover);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .spoiler-container {
+      margin: 12px 0;
+    }
+
+    .spoiler-header {
+      background: linear-gradient(135deg, var(--button-color), var(--button-hover));
+      padding: 15px 20px;
+      border-radius: 15px;
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      font-weight: 500;
+      border: 2px solid transparent;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .spoiler-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.5s;
+    }
+
+    .spoiler-header:hover::before {
+      left: 100%;
+    }
+
+    .spoiler-header:hover {
+      background: linear-gradient(135deg, var(--button-hover), #7a7a7a);
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      border-color: var(--gray-bar);
+    }
+
+    .spoiler-arrow {
+      transition: transform 0.3s ease;
+      font-size: 12px;
+    }
+
+    .spoiler-arrow.open {
+      transform: rotate(180deg);
+    }
+
+    .spoiler-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      background: var(--card-color);
+      border-radius: 0 0 15px 15px;
+      margin-top: -15px;
+      padding-top: 15px;
+    }
+
+    .spoiler-content.open {
+      max-height: 200px;
+      padding: 20px;
+      border: 2px solid var(--gray-bar);
+      border-top: none;
+    }
+
+    .spoiler-info {
+      font-size: 13px;
+      color: var(--subtext-color);
+      line-height: 1.6;
+    }
+
+    .spoiler-info strong {
+      color: var(--text-color);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 25px;
+    }
+
+    .stat-card {
+      background: var(--card-color);
+      border: 2px solid var(--gray-bar);
+      border-radius: 15px;
+      padding: 15px;
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.5s;
+    }
+
+    .stat-card:hover::before {
+      left: 100%;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      border-color: var(--text-color);
+    }
+
+    .stat-icon {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--subtext-color);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .stat-value {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-color);
+      line-height: 1.2;
+    }
+
+    footer {
+      margin-top: 25px;
+      font-size: 12px;
+      color: var(--subtext-color);
+    }
+  </style>
+</head>
+<body data-theme="dark">
+
+  <div class="container">
+    <button class="toggle-theme" onclick="toggleTheme()">🌗</button>
+
+    <img src="https://files.catbox.moe/g8e37p.jpg" alt="Foto Profil" class="profile" />
+    <h1>Bang Wily</h1>
+    <p class="role">Creative Content Creator | Digital Entrepreneur</p>
+    <div class="typing-text" id="typing"></div>
+
+    <div class="music-player">
+      <div class="music-header">
+        <div class="music-title">🎵 Music Player</div>
+        <div class="music-controls">
+          <button class="music-control-btn" onclick="previousTrack()">⏮️</button>
+          <button class="music-btn" onclick="toggleMusic()">▶️</button>
+          <button class="music-control-btn" onclick="nextTrack()">⏭️</button>
+          <button class="music-control-btn" onclick="toggleShuffle()">🔀</button>
+        </div>
+      </div>
+      <div class="music-animation" id="music-animation">
+        <div class="music-bar"></div>
+        <div class="music-bar"></div>
+        <div class="music-bar"></div>
+        <div class="music-bar"></div>
+        <div class="music-bar"></div>
+      </div>
+      <div class="music-info">
+        <div class="track-name" id="track-name">Relaxing Background Music</div>
+        <div class="track-artist" id="track-artist">Ambient Collection</div>
+      </div>
+      <div class="music-progress">
+        <div class="progress-bar" id="progress-bar">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <div class="music-time" id="music-time">00:00 / 00:00</div>
+      </div>
+    </div>
+
+    <div class="spoiler-container">
+      <div class="spoiler-header" onclick="toggleSpoiler('whatsapp')">
+        <span>📱 WhatsApp</span>
+        <span class="spoiler-arrow" id="whatsapp-arrow">▼</span>
+      </div>
+      <div class="spoiler-content" id="whatsapp-content">
+        <div class="spoiler-info">
+          <strong>💬 Chat Langsung dengan Kenn!</strong><br>
+          📞 Nomor: +62 831-6864-0760<br>
+          🕐 Online: 08:00 - 22:00 WIB<br>
+          💼 Untuk konsultasi bot & panel<br>
+          <a href="https://wa.me/6283168640760" target="_blank" style="color: #25d366; text-decoration: none; font-weight: bold;">➤ Buka WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="spoiler-container">
+      <div class="spoiler-header" onclick="toggleSpoiler('wachannel')">
+        <span>📢 WhatsApp Channel</span>
+        <span class="spoiler-arrow" id="wachannel-arrow">▼</span>
+      </div>
+      <div class="spoiler-content" id="wachannel-content">
+        <div class="spoiler-info">
+          <strong>📡 Channel Resmi Kenn!</strong><br>
+          📰 Update terbaru tentang project<br>
+          🆕 Announcements & News<br>
+          🎁 Promo & Discount khusus<br>
+          📊 Tips & Tricks developer<br>
+          <a href="https://whatsapp.com/channel/0029Vb5eutw5fM5epF3U0X20" target="_blank" style="color: #25d366; text-decoration: none; font-weight: bold;">➤ Join Channel</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="spoiler-container">
+      <div class="spoiler-header" onclick="toggleSpoiler('whatsappgroup')">
+        <span>👥 WhatsApp Grup</span>
+        <span class="spoiler-arrow" id="whatsappgroup-arrow">▼</span>
+      </div>
+      <div class="spoiler-content" id="whatsappgroup-content">
+        <div class="spoiler-info">
+          <strong>👥 Join Grup WhatsApp!</strong><br>
+          🎯 Komunitas developer Indonesia<br>
+          💡 Share tips & tricks coding<br>
+          🤝 Networking & collaboration<br>
+          📢 Update terbaru project<br>
+          🎁 Bonus script & tools gratis<br>
+          <a href="https://chat.whatsapp.com/invite-link" target="_blank" style="color: #25d366; text-decoration: none; font-weight: bold;">➤ Join Grup WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="spoiler-container">
+      <div class="spoiler-header" onclick="toggleSpoiler('download')">
+        <span>📥 Download Script Bot</span>
+        <span class="spoiler-arrow" id="download-arrow">▼</span>
+      </div>
+      <div class="spoiler-content" id="download-content">
+        <div class="spoiler-info">
+          <strong>🤖 Download Script Bot Gratis!</strong><br>
+          ⚡ Bot WhatsApp Multi-Device<br>
+          🛠️ Fitur lengkap & customizable<br>
+          📚 Dokumentasi & tutorial<br>
+          🔄 Update rutin & support<br>
+          💎 Source code terbaru<br>
+          <a href="https://github.com/kennvxy/bot-script" target="_blank" style="color: #6f42c1; text-decoration: none; font-weight: bold;">➤ Download Script</a>
+        </div>
+      </div>
+    </div>
+
+    
+    
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">📅</div>
+        <div class="stat-label">Tanggal Hari Ini</div>
+        <div class="stat-value" id="date"></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">👥</div>
+        <div class="stat-label">Total Pengunjung</div>
+        <div class="stat-value" id="visitor-count">Loading...</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🌤️</div>
+        <div class="stat-label">Cuaca Jakarta</div>
+        <div class="stat-value" id="weather">Loading...</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">⭐</div>
+        <div class="stat-label">Rating Website</div>
+        <div class="stat-value" id="rating">4.9/5.0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🔥</div>
+        <div class="stat-label">Visitors Today</div>
+        <div class="stat-value" id="daily-visitors">Loading...</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🚀</div>
+        <div class="stat-label">Projects Done</div>
+        <div class="stat-value" id="projects">150+</div>
+      </div>
+    </div>
+    
+    <div class="time" id="time"></div>
+
+    <footer>© 2025 Kenn • All rights reserved.</footer>
+  </div>
+
+  <audio id="bg-music">
+    <source src="https://files.catbox.moe/lvhshq.mp3" type="audio/mpeg">
+    Browser kamu tidak mendukung audio.
+  </audio>
+
+  <script>
+    const audio = document.getElementById("bg-music");
+    const playBtn = document.querySelector(".music-btn");
+    const typing = document.getElementById("typing");
+    const texts = [
+      "Halo everyone, I'm kenn age: 12 years...",
+      "Butuh bot/panel? Langsung chat yaa~",
+      "Jasa install panel & dll, info selengkapnya follow my ch."
+    ];
+    let typingIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    // Music playlist
+    const playlist = [
+      {
+        src: "https://files.catbox.moe/lvhshq.mp3",
+        name: "Relaxing Background Music",
+        artist: "Ambient Collection"
+      },
+      {
+        src: "https://files.catbox.moe/lvhshq.mp3",
+        name: "Chill Vibes",
+        artist: "Lofi Beats"
+      },
+      {
+        src: "https://files.catbox.moe/lvhshq.mp3",
+        name: "Peaceful Moments",
+        artist: "Nature Sounds"
+      }
+    ];
+
+    let currentTrack = 0;
+    let isShuffleOn = false;
+    let shuffleHistory = [];
+
+    function typeEffect() {
+      const current = texts[typingIndex];
+      typing.textContent = current.substring(0, charIndex) + (charIndex % 2 === 0 ? "|" : "");
+      if (!isDeleting && charIndex < current.length) {
+        charIndex++;
+        setTimeout(typeEffect, 100);
+      } else if (isDeleting && charIndex > 0) {
+        charIndex--;
+        setTimeout(typeEffect, 50);
+      } else {
+        isDeleting = !isDeleting;
+        if (!isDeleting) typingIndex = (typingIndex + 1) % texts.length;
+        setTimeout(typeEffect, 1000);
+      }
+    }
+    typeEffect();
+
+    function loadTrack(index) {
+      const track = playlist[index];
+      audio.src = track.src;
+      document.getElementById('track-name').textContent = track.name;
+      document.getElementById('track-artist').textContent = track.artist;
+      updateMusicTime();
+    }
+
+    function toggleMusic() {
+      const animation = document.getElementById('music-animation');
+      if (audio.paused) {
+        audio.play();
+        playBtn.textContent = "⏸️";
+        animation.classList.add('playing');
+      } else {
+        audio.pause();
+        playBtn.textContent = "▶️";
+        animation.classList.remove('playing');
+      }
+    }
+
+    function nextTrack() {
+      if (isShuffleOn) {
+        let nextIndex;
+        do {
+          nextIndex = Math.floor(Math.random() * playlist.length);
+        } while (nextIndex === currentTrack && playlist.length > 1);
+        currentTrack = nextIndex;
+      } else {
+        currentTrack = (currentTrack + 1) % playlist.length;
+      }
+      loadTrack(currentTrack);
+      if (!audio.paused) {
+        audio.play();
+      }
+    }
+
+    function previousTrack() {
+      if (isShuffleOn) {
+        if (shuffleHistory.length > 0) {
+          currentTrack = shuffleHistory.pop();
+        } else {
+          currentTrack = Math.floor(Math.random() * playlist.length);
+        }
+      } else {
+        currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
+      }
+      loadTrack(currentTrack);
+      if (!audio.paused) {
+        audio.play();
+      }
+    }
+
+    function toggleShuffle() {
+      isShuffleOn = !isShuffleOn;
+      const shuffleBtn = document.querySelector('.music-control-btn:last-child');
+      if (isShuffleOn) {
+        shuffleBtn.classList.add('shuffle-active');
+        shuffleBtn.textContent = '🔀';
+      } else {
+        shuffleBtn.classList.remove('shuffle-active');
+        shuffleBtn.textContent = '🔀';
+        shuffleHistory = [];
+      }
+    }
+
+    function updateMusicTime() {
+      const timeDisplay = document.getElementById('music-time');
+      const progressFill = document.getElementById('progress-fill');
+      
+      if (audio.duration) {
+        const current = formatTime(audio.currentTime);
+        const total = formatTime(audio.duration);
+        timeDisplay.textContent = `${current} / ${total}`;
+        
+        const progress = (audio.currentTime / audio.duration) * 100;
+        progressFill.style.width = progress + '%';
+      }
+    }
+
+    function formatTime(seconds) {
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    }
+
+    // Progress bar click handler
+    document.getElementById('progress-bar').addEventListener('click', function(e) {
+      const rect = this.getBoundingClientRect();
+      const percent = (e.clientX - rect.left) / rect.width;
+      audio.currentTime = percent * audio.duration;
+    });
+
+    // Auto next track when current ends
+    audio.addEventListener('ended', nextTrack);
+    audio.addEventListener('timeupdate', updateMusicTime);
+    audio.addEventListener('loadedmetadata', updateMusicTime);
+
+    // Initialize first track
+    loadTrack(currentTrack);
+
+    function updateTime() {
+      const now = new Date();
+      const options = { timeZone: 'Asia/Jakarta' };
+      document.getElementById("time").textContent = now.toLocaleTimeString("id-ID", options);
+      
+      const dateOptions = { 
+        timeZone: 'Asia/Jakarta',
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      };
+      document.getElementById("date").textContent = now.toLocaleDateString("id-ID", dateOptions);
+    }
+    setInterval(updateTime, 1000);
+    updateTime();
+
+    function toggleSpoiler(id) {
+      const content = document.getElementById(id + '-content');
+      const arrow = document.getElementById(id + '-arrow');
+      
+      if (content.classList.contains('open')) {
+        content.classList.remove('open');
+        arrow.classList.remove('open');
+      } else {
+        // Close all other spoilers
+        document.querySelectorAll('.spoiler-content').forEach(el => el.classList.remove('open'));
+        document.querySelectorAll('.spoiler-arrow').forEach(el => el.classList.remove('open'));
+        
+        // Open current spoiler
+        content.classList.add('open');
+        arrow.classList.add('open');
+      }
+    }
+
+    function updateVisitorCount() {
+      let visitors = localStorage.getItem('visitorCount');
+      let dailyVisitors = localStorage.getItem('dailyVisitors');
+      let lastVisitDate = localStorage.getItem('lastVisitDate');
+      let today = new Date().toDateString();
+      
+      if (!visitors) {
+        visitors = Math.floor(Math.random() * 1500) + 1200;
+        localStorage.setItem('visitorCount', visitors);
+      } else {
+        visitors = parseInt(visitors) + 1;
+        localStorage.setItem('visitorCount', visitors);
+      }
+      
+      if (lastVisitDate !== today) {
+        dailyVisitors = Math.floor(Math.random() * 200) + 50;
+        localStorage.setItem('dailyVisitors', dailyVisitors);
+        localStorage.setItem('lastVisitDate', today);
+      } else if (!dailyVisitors) {
+        dailyVisitors = Math.floor(Math.random() * 200) + 50;
+        localStorage.setItem('dailyVisitors', dailyVisitors);
+      } else {
+        dailyVisitors = parseInt(dailyVisitors) + 1;
+        localStorage.setItem('dailyVisitors', dailyVisitors);
+      }
+      
+      document.getElementById('visitor-count').textContent = visitors.toLocaleString('id-ID');
+      document.getElementById('daily-visitors').textContent = dailyVisitors.toLocaleString('id-ID');
+    }
+    updateVisitorCount();
+
+    async function updateWeather() {
+      try {
+        // Simulasi data cuaca Jakarta (dalam implementasi nyata gunakan API weather)
+        const weatherConditions = [
+          { temp: '32°C', condition: 'Cerah' },
+          { temp: '30°C', condition: 'Berawan' },
+          { temp: '28°C', condition: 'Hujan Ringan' },
+          { temp: '31°C', condition: 'Partly Cloudy' }
+        ];
+        const randomWeather = weatherConditions[Math.floor(Math.random() * weatherConditions.length)];
+        document.getElementById('weather').textContent = `${randomWeather.temp} ${randomWeather.condition}`;
+      } catch (error) {
+        document.getElementById('weather').textContent = '30°C Cerah';
+      }
+    }
+    updateWeather();
+
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute("data-theme");
+      const next = current === "dark" ? "light" : "dark";
+      body.setAttribute("data-theme", next);
+    }
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) audio.pause();
+    });
+
+    window.addEventListener("beforeunload", () => {
+      audio.pause();
+    });
+  </script>
+
+</body>
+</html>
