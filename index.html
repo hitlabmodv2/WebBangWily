@@ -791,6 +791,18 @@
       transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
+      background-image: 
+        linear-gradient(135deg, rgba(29, 185, 84, 0.1) 0%, rgba(255, 107, 107, 0.1) 50%, rgba(75, 192, 192, 0.1) 100%),
+        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 177, 153, 0.15) 0%, transparent 50%);
+      backdrop-filter: blur(10px);
+    }
+
+    [data-theme="light"] .stat-card {
+      background-image: 
+        linear-gradient(135deg, rgba(74, 144, 226, 0.08) 0%, rgba(80, 227, 194, 0.08) 50%, rgba(245, 166, 35, 0.08) 100%),
+        radial-gradient(circle at 20% 80%, rgba(156, 39, 176, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(233, 30, 99, 0.1) 0%, transparent 50%);
     }
 
     .stat-card::before {
@@ -800,7 +812,7 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
       transition: left 0.5s;
     }
 
@@ -809,9 +821,20 @@
     }
 
     .stat-card:hover {
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
       border-color: var(--text-color);
+      background-image: 
+        linear-gradient(135deg, rgba(29, 185, 84, 0.2) 0%, rgba(255, 107, 107, 0.2) 50%, rgba(75, 192, 192, 0.2) 100%),
+        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.25) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 177, 153, 0.25) 0%, transparent 50%);
+    }
+
+    [data-theme="light"] .stat-card:hover {
+      background-image: 
+        linear-gradient(135deg, rgba(74, 144, 226, 0.15) 0%, rgba(80, 227, 194, 0.15) 50%, rgba(245, 166, 35, 0.15) 100%),
+        radial-gradient(circle at 20% 80%, rgba(156, 39, 176, 0.18) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(233, 30, 99, 0.18) 0%, transparent 50%);
     }
 
     .stat-icon {
@@ -831,6 +854,22 @@
       font-weight: 700;
       color: var(--text-color);
       line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .stat-description {
+      font-size: 10px;
+      color: var(--subtext-color);
+      line-height: 1.4;
+      text-align: center;
+      opacity: 0.8;
+      font-weight: 400;
+      padding-top: 5px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    [data-theme="light"] .stat-description {
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
     }
 
     footer {
@@ -962,68 +1001,115 @@
       </div>
     </div>
 
+    <div class="spoiler-container">
+      <div class="spoiler-header" onclick="toggleSpoiler('age')">
+        <span>👤 Profil & Informasi Usia</span>
+        <span class="spoiler-arrow" id="age-arrow">▼</span>
+      </div>
+      <div class="spoiler-content" id="age-content">
+        <div class="spoiler-info">
+          <strong>👨‍💻 Profil Lengkap Bang Wily</strong><br>
+          🎂 Usia: 23 Tahun (Lahir 14 Juli 2001)<br>
+          📍 Lokasi: Jakarta, Indonesia<br>
+          🎓 Pendidikan: S1 Teknik Informatika<br>
+          💼 Pekerjaan: Full Stack Developer & Content Creator<br>
+          🏆 Pengalaman: 5+ tahun di bidang programming<br>
+          🌟 Keahlian: JavaScript, Python, Bot Development<br>
+          🎯 Spesialisasi: WhatsApp Bot & Web Development<br>
+          📈 Project Selesai: 150+ aplikasi & bot<br>
+          🔥 Bahasa Pemrograman: JS, Python, PHP, HTML/CSS<br>
+          💎 Tools Favorit: Node.js, React, Express, MongoDB<br>
+          🎪 Hobi: Gaming, Anime, Coding, Music Production<br>
+          📚 Sertifikasi: Google Developer, Meta Developer<br>
+          <strong>🌐 Visi:</strong> Membantu developer Indonesia dengan script berkualitas tinggi dan tutorial yang mudah dipahami
+        </div>
+      </div>
+    </div>
 
 
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-icon">📅</div>
-        <div class="stat-label">Tanggal Hari Ini</div>
-        <div class="stat-value" id="date"></div>
+
+    <div class="spoiler-container">
+      <div class="spoiler-header" onclick="toggleSpoiler('statistics')">
+        <span>📊 Statistik & Informasi Website</span>
+        <span class="spoiler-arrow" id="statistics-arrow">▼</span>
       </div>
-      <div class="stat-card">
-        <div class="stat-icon">👥</div>
-        <div class="stat-label">Total Pengunjung</div>
-        <div class="stat-value" id="visitor-count">Loading...</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon">🌤️</div>
-        <div class="stat-label">Cuaca Jakarta</div>
-        <div class="stat-value" id="weather">Loading...</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon">⭐</div>
-        <div class="stat-label">Rating Website</div>
-        <div class="stat-value" id="rating">4.9/5.0</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon">🔥</div>
-        <div class="stat-label">Visitors Today</div>
-        <div class="stat-value" id="daily-visitors">Loading...</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon">🚀</div>
-        <div class="stat-label">Projects Done</div>
-        <div class="stat-value" id="projects">150+</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon">⚡</div>
-        <div class="stat-label">Website Uptime</div>
-        <div class="stat-value" id="uptime">99.9%</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon">🌍</div>
-        <div class="stat-label">Countries Reached</div>
-        <div class="stat-value" id="countries">25+</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon">📊</div>
-        <div class="stat-label">Page Views</div>
-        <div class="stat-value" id="page-views">Loading...</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon">💻</div>
-        <div class="stat-label">Server Status</div>
-        <div class="stat-value" id="server-status">Online</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon">⏱️</div>
-        <div class="stat-label">Avg Load Time</div>
-        <div class="stat-value" id="load-time">0.8s</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon">🎯</div>
-        <div class="stat-label">Bot Scripts</div>
-        <div class="stat-value" id="bot-scripts">50+</div>
+      <div class="spoiler-content" id="statistics-content">
+        <div class="spoiler-info">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon">⚡</div>
+              <div class="stat-label">Website Uptime</div>
+              <div class="stat-value" id="uptime">99.9%</div>
+              <div class="stat-description">Persentase waktu website online dan dapat diakses 24/7</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">💻</div>
+              <div class="stat-label">Server Status</div>
+              <div class="stat-value" id="server-status">Online</div>
+              <div class="stat-description">Status real-time server hosting website dan layanan</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">⏱️</div>
+              <div class="stat-label">Avg Load Time</div>
+              <div class="stat-value" id="load-time">0.8s</div>
+              <div class="stat-description">Rata-rata waktu loading website untuk user experience optimal</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">📅</div>
+              <div class="stat-label">Tanggal Hari Ini</div>
+              <div class="stat-value" id="date"></div>
+              <div class="stat-description">Tanggal real-time berdasarkan zona waktu Jakarta (WIB)</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">👥</div>
+              <div class="stat-label">Total Pengunjung</div>
+              <div class="stat-value" id="visitor-count">Loading...</div>
+              <div class="stat-description">Akumulasi seluruh visitor yang pernah mengakses website</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">🔥</div>
+              <div class="stat-label">Visitors Today</div>
+              <div class="stat-value" id="daily-visitors">Loading...</div>
+              <div class="stat-description">Jumlah pengunjung unik yang mengakses hari ini</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">📊</div>
+              <div class="stat-label">Page Views</div>
+              <div class="stat-value" id="page-views">Loading...</div>
+              <div class="stat-description">Total halaman yang telah dilihat oleh semua pengunjung</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">🌤️</div>
+              <div class="stat-label">Cuaca Jakarta</div>
+              <div class="stat-value" id="weather">Loading...</div>
+              <div class="stat-description">Info cuaca Jakarta real-time berdasarkan waktu saat ini</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">⭐</div>
+              <div class="stat-label">Rating Website</div>
+              <div class="stat-value" id="rating">4.9/5.0</div>
+              <div class="stat-description">Rating kualitas website berdasarkan feedback pengunjung</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">🚀</div>
+              <div class="stat-label">Projects Done</div>
+              <div class="stat-value" id="projects">150+</div>
+              <div class="stat-description">Total project bot WhatsApp & web development yang telah diselesaikan</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">🌍</div>
+              <div class="stat-label">Countries Reached</div>
+              <div class="stat-value" id="countries">25+</div>
+              <div class="stat-description">Negara yang telah mengakses layanan script bot kami</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">🎯</div>
+              <div class="stat-label">Bot Scripts</div>
+              <div class="stat-value" id="bot-scripts">50+</div>
+              <div class="stat-description">Koleksi script bot WhatsApp gratis yang tersedia download</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -1395,12 +1481,43 @@
     // Initialize audio players
     let audioPlayer;
 
-    // Wait for user interaction before initializing audio
+    // Auto-initialize audio player and start playing on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      // Small delay to ensure everything is loaded
+      setTimeout(() => {
+        try {
+          if (!audioPlayer) {
+            audioPlayer = new RobustAudioPlayer();
+            console.log('Audio player auto-initialized');
+            
+            // Auto play after initialization
+            setTimeout(() => {
+              if (audioPlayer && audioPlayer.isInitialized) {
+                audioPlayer.play().catch(error => {
+                  console.log('Autoplay blocked, waiting for user interaction');
+                  // Fallback: wait for any user interaction
+                  document.addEventListener('click', function() {
+                    audioPlayer.play().catch(console.error);
+                  }, { once: true });
+                });
+              }
+            }, 500);
+          }
+        } catch (error) {
+          console.error('Failed to auto-initialize audio player:', error);
+        }
+      }, 1000);
+    });
+
+    // Backup: Wait for user interaction if autoplay fails
     document.addEventListener('click', function initAudio() {
       if (!audioPlayer) {
         try {
           audioPlayer = new RobustAudioPlayer();
           console.log('Audio player initialized after user interaction');
+          setTimeout(() => {
+            audioPlayer.play().catch(console.error);
+          }, 300);
         } catch (error) {
           console.error('Failed to initialize audio player:', error);
         }
