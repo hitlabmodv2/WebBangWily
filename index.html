@@ -1089,6 +1089,11 @@
         this.audio.addEventListener('canplaythrough', () => {
           console.log('Audio dapat dimainkan');
           this.hideLoading();
+          
+          // Auto play jika sedang dalam status playing
+          if (this.isPlaying && this.audio.paused) {
+            this.play().catch(console.error);
+          }
         });
 
         this.audio.addEventListener('error', (e) => {
@@ -1097,6 +1102,8 @@
         });
 
         this.audio.addEventListener('ended', () => {
+          // Auto play track berikutnya
+          this.isPlaying = true;
           this.nextTrack();
         });
 
@@ -1163,6 +1170,9 @@
           // Set new source
           this.audio.src = track.src;
           this.audio.load();
+
+          // Reset retry count untuk track baru
+          this.retryCount = 0;
 
           console.log('Loading track:', track.name);
 
@@ -1250,10 +1260,17 @@
           const wasPlaying = this.isPlaying;
           this.loadTrack(nextIndex);
 
-          if (wasPlaying) {
-            setTimeout(() => {
+          // Auto play setelah track dimuat
+          const playWhenReady = () => {
+            if (this.audio.readyState >= 2) {
               this.play().catch(console.error);
-            }, 1000);
+            } else {
+              setTimeout(playWhenReady, 100);
+            }
+          };
+
+          if (wasPlaying) {
+            setTimeout(playWhenReady, 500);
           }
         } catch (error) {
           console.error('Next track error:', error);
@@ -1269,10 +1286,17 @@
           const wasPlaying = this.isPlaying;
           this.loadTrack(prevIndex);
 
-          if (wasPlaying) {
-            setTimeout(() => {
+          // Auto play setelah track dimuat
+          const playWhenReady = () => {
+            if (this.audio.readyState >= 2) {
               this.play().catch(console.error);
-            }, 1000);
+            } else {
+              setTimeout(playWhenReady, 100);
+            }
+          };
+
+          if (wasPlaying) {
+            setTimeout(playWhenReady, 500);
           }
         } catch (error) {
           console.error('Previous track error:', error);
