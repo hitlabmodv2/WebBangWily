@@ -377,26 +377,7 @@
       50% { transform: scaleY(1); }
     }
 
-    .time {
-      font-size: 24px;
-      margin-top: 20px;
-      color: var(--text-color);
-      font-weight: 700;
-      text-align: center;
-      background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
-      background-size: 400% 400%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: gradientShift 3s ease-in-out infinite;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    }
-
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+    
 
     .toggle-theme {
       position: absolute;
@@ -795,6 +776,12 @@
       margin-top: 25px;
     }
 
+    @media (min-width: 768px) {
+      .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
     .stat-card {
       background: var(--card-color);
       border: 2px solid var(--gray-bar);
@@ -1008,9 +995,37 @@
         <div class="stat-label">Projects Done</div>
         <div class="stat-value" id="projects">150+</div>
       </div>
+      <div class="stat-card">
+        <div class="stat-icon">⚡</div>
+        <div class="stat-label">Website Uptime</div>
+        <div class="stat-value" id="uptime">99.9%</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🌍</div>
+        <div class="stat-label">Countries Reached</div>
+        <div class="stat-value" id="countries">25+</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">📊</div>
+        <div class="stat-label">Page Views</div>
+        <div class="stat-value" id="page-views">Loading...</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">💻</div>
+        <div class="stat-label">Server Status</div>
+        <div class="stat-value" id="server-status">Online</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">⏱️</div>
+        <div class="stat-label">Avg Load Time</div>
+        <div class="stat-value" id="load-time">0.8s</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🎯</div>
+        <div class="stat-label">Bot Scripts</div>
+        <div class="stat-value" id="bot-scripts">50+</div>
+      </div>
     </div>
-
-    <div class="time" id="time"></div>
 
     <footer>© 2025 BangWily • All rights reserved.</footer>
   </div>
@@ -1497,9 +1512,6 @@
 
     function updateTime() {
       const now = new Date();
-      const options = { timeZone: 'Asia/Jakarta' };
-      document.getElementById("time").textContent = now.toLocaleTimeString("id-ID", options);
-
       const dateOptions = { 
         timeZone: 'Asia/Jakarta',
         weekday: 'long', 
@@ -1509,7 +1521,6 @@
       };
       document.getElementById("date").textContent = now.toLocaleDateString("id-ID", dateOptions);
     }
-    setInterval(updateTime, 1000);
     updateTime();
 
     function toggleSpoiler(id) {
@@ -1533,6 +1544,7 @@
     function updateVisitorCount() {
       let visitors = localStorage.getItem('visitorCount');
       let dailyVisitors = localStorage.getItem('dailyVisitors');
+      let pageViews = localStorage.getItem('pageViews');
       let lastVisitDate = localStorage.getItem('lastVisitDate');
       let today = new Date().toDateString();
 
@@ -1542,6 +1554,14 @@
       } else {
         visitors = parseInt(visitors) + 1;
         localStorage.setItem('visitorCount', visitors);
+      }
+
+      if (!pageViews) {
+        pageViews = Math.floor(Math.random() * 5000) + 3000;
+        localStorage.setItem('pageViews', pageViews);
+      } else {
+        pageViews = parseInt(pageViews) + Math.floor(Math.random() * 3) + 1;
+        localStorage.setItem('pageViews', pageViews);
       }
 
       if (lastVisitDate !== today) {
@@ -1558,8 +1578,26 @@
 
       document.getElementById('visitor-count').textContent = visitors.toLocaleString('id-ID');
       document.getElementById('daily-visitors').textContent = dailyVisitors.toLocaleString('id-ID');
+      document.getElementById('page-views').textContent = pageViews.toLocaleString('id-ID');
     }
     updateVisitorCount();
+
+    function updateServerStats() {
+      // Simulate server status
+      const serverStatus = document.getElementById('server-status');
+      const loadTime = document.getElementById('load-time');
+      const uptime = document.getElementById('uptime');
+      
+      // Random server metrics
+      const uptimePercent = (99.8 + Math.random() * 0.2).toFixed(1);
+      const loadTimeMs = (0.5 + Math.random() * 0.8).toFixed(1);
+      
+      serverStatus.textContent = 'Online';
+      serverStatus.style.color = '#1db954';
+      loadTime.textContent = loadTimeMs + 's';
+      uptime.textContent = uptimePercent + '%';
+    }
+    updateServerStats();
 
     async function updateWeather() {
       try {
