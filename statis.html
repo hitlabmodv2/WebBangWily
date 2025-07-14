@@ -95,8 +95,12 @@
         }
 
         .back-button {
-            background: linear-gradient(135deg, var(--button-color), var(--button-hover));
-            color: var(--text-color);
+            background: linear-gradient(135deg, rgba(29, 185, 84, 0.8), rgba(30, 215, 96, 0.8)), 
+                        url('https://picsum.photos/400/200?random=random');
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
+            color: white;
             padding: 12px 24px;
             border: none;
             border-radius: 15px;
@@ -108,15 +112,21 @@
             align-items: center;
             gap: 8px;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             min-width: 140px;
             justify-content: center;
             touch-action: manipulation;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .back-button:hover {
             transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 25px rgba(29, 185, 84, 0.4);
+            background: linear-gradient(135deg, rgba(30, 215, 96, 0.9), rgba(29, 185, 84, 0.9)), 
+                        url('https://picsum.photos/400/200?random=random');
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
         }
 
         .stats-overview {
@@ -127,7 +137,11 @@
         }
 
         .overview-card {
-            background: linear-gradient(135deg, var(--card-color), rgba(255, 255, 255, 0.05));
+            background: linear-gradient(135deg, var(--card-color), rgba(255, 255, 255, 0.05)), 
+                        url('https://picsum.photos/300/200?random=random');
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
             border: 2px solid var(--gray-bar);
             border-radius: 12px;
             padding: 12px 8px;
@@ -192,7 +206,11 @@
         }
 
         .stat-section {
-            background: var(--card-color);
+            background: linear-gradient(135deg, var(--card-color), rgba(255, 255, 255, 0.05)), 
+                        url('https://picsum.photos/400/300?random=random');
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
             border: 2px solid var(--gray-bar);
             border-radius: 20px;
             padding: 30px;
@@ -286,7 +304,11 @@
         }
 
         .system-item {
-            background: rgba(255, 255, 255, 0.05);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)), 
+                        url('https://picsum.photos/250/150?random=random');
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
             padding: 20px;
             border-radius: 15px;
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -374,8 +396,12 @@
         }
 
         .social-link {
-            background: var(--button-color);
-            color: var(--text-color);
+            background: linear-gradient(135deg, rgba(29, 185, 84, 0.7), rgba(30, 215, 96, 0.7)), 
+                        url('https://picsum.photos/100/100?random=random');
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
+            color: white;
             padding: 12px;
             border-radius: 50%;
             text-decoration: none;
@@ -387,11 +413,17 @@
             min-width: 40px;
             min-height: 40px;
             touch-action: manipulation;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .social-link:hover {
-            background: var(--accent-color);
+            background: linear-gradient(135deg, rgba(30, 215, 96, 0.9), rgba(29, 185, 84, 0.9)), 
+                        url('https://picsum.photos/100/100?random=random');
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
             transform: translateY(-2px) scale(1.1);
+            box-shadow: 0 4px 15px rgba(29, 185, 84, 0.4);
         }
 
         @media (max-width: 768px) {
@@ -633,7 +665,7 @@
         <div class="detailed-stats">
             <div class="stat-section">
                 <h3 class="section-title">🌐 Performa Website</h3>
-                
+
                 <div class="stat-item">
                     <span class="stat-label">⏱️ Avg Load Time</span>
                     <span class="stat-value" id="load-time">0.8s</span>
@@ -663,7 +695,7 @@
 
             <div class="stat-section">
                 <h3 class="section-title">🚀 Project & Development</h3>
-                
+
                 <div class="stat-item">
                     <span class="stat-label">🎯 Projects Done</span>
                     <span class="stat-value">150+</span>
@@ -690,7 +722,7 @@
 
             <div class="stat-section">
                 <h3 class="section-title">📈 Traffic Analytics</h3>
-                
+
                 <div class="stat-item">
                     <span class="stat-label">📱 Mobile Users</span>
                     <span class="stat-value">75%</span>
@@ -720,7 +752,7 @@
 
             <div class="stat-section">
                 <h3 class="section-title">🎵 Music Player Stats</h3>
-                
+
                 <div class="stat-item">
                     <span class="stat-label">🎧 Total Plays</span>
                     <span class="stat-value" id="music-plays">Loading...</span>
@@ -747,7 +779,7 @@
 
             <div class="stat-section">
                 <h3 class="section-title">💰 Revenue & Business</h3>
-                
+
                 <div class="stat-item">
                     <span class="stat-label">💵 Monthly Revenue</span>
                     <span class="stat-value">$2,450</span>
@@ -777,9 +809,9 @@
 
             <div class="stat-section">
                 <h3 class="section-title">🌐 Social Media & Reach</h3>
-                
+
                 <div class="stat-item">
-                    <span class="stat-label">📱 WhatsApp Contacts</span>
+                    <span class="stat-label">📱 Nomer Owner Contacts</span>
                     <span class="stat-value">2,890</span>
                 </div>
 
@@ -804,7 +836,7 @@
 
             <div class="stat-section">
                 <h3 class="section-title">🔧 Technical Performance</h3>
-                
+
                 <div class="stat-item">
                     <span class="stat-label">⚡ API Response Time</span>
                     <span class="stat-value">45ms</span>
@@ -834,7 +866,7 @@
 
             <div class="stat-section">
                 <h3 class="section-title">📊 Content & Downloads</h3>
-                
+
                 <div class="stat-item">
                     <span class="stat-label">📄 Total Scripts</span>
                     <span class="stat-value">78</span>
@@ -960,12 +992,12 @@
             document.getElementById('daily-visitors').textContent = dailyVisitors.toLocaleString('id-ID');
             document.getElementById('page-views').textContent = pageViews.toLocaleString('id-ID');
             document.getElementById('music-plays').textContent = musicPlays.toLocaleString('id-ID');
-            
+
             // Update total downloads
             let totalDownloads = localStorage.getItem('totalDownloads') || Math.floor(Math.random() * 5000) + 12000;
             totalDownloads = parseInt(totalDownloads) + Math.floor(Math.random() * 5) + 1;
             localStorage.setItem('totalDownloads', totalDownloads);
-            
+
             const downloadsElement = document.getElementById('total-downloads');
             if (downloadsElement) {
                 downloadsElement.textContent = totalDownloads.toLocaleString('id-ID');
@@ -1055,7 +1087,7 @@
         function updateServerMetrics() {
             const loadTime = (0.5 + Math.random() * 0.8).toFixed(1);
             document.getElementById('load-time').textContent = loadTime + 's';
-            
+
             document.getElementById('server-status').textContent = 'Online';
             document.getElementById('server-status').style.color = '#1db954';
         }
@@ -1068,7 +1100,7 @@
 
             // Update statistics every 30 seconds
             setInterval(updateStatistics, 30000);
-            
+
             // Update weather every 5 minutes
             setInterval(updateWeather, 300000);
 
@@ -1108,7 +1140,7 @@
         function handleScrollToTop() {
             const scrollToTopBtn = document.getElementById('scrollToTopBtn');
             const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-            
+
             if (scrollPosition > 300) {
                 scrollToTopBtn.classList.add('show');
             } else {
@@ -1126,7 +1158,7 @@
 
         // Add scroll event listener
         window.addEventListener('scroll', handleScrollToTop);
-        
+
         // Initialize scroll to top button state
         handleScrollToTop();
     </script>
