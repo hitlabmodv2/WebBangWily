@@ -5,13 +5,13 @@
   "description": "Personal website for Bang Wily",
   "main": "index.html",
   "scripts": {
-    "start": "serve . -p 3000",
+    "start": "npx serve . -p $PORT",
     "dev": "serve . -p 3000"
   },
   "dependencies": {
     "serve": "^14.2.1"
   },
   "engines": {
-    "node": ">=21.0.0"
+    "node": ">=18.0.0"
   }
 }
