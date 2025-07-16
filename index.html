@@ -6,1114 +6,22 @@
   <title>BangWily</title>
   <link rel="icon" type="image/jpeg" href="https://files.catbox.moe/zrezka.jpg">
   <link rel="shortcut icon" type="image/jpeg" href="https://files.catbox.moe/zrezka.jpg">
-  <style>
-    :root {
-      --bg-color: #1a1a1a;
-      --card-color: rgba(40, 40, 40, 0.7);
-      --text-color: #e5e5e5;
-      --subtext-color: #a3a3a3;
-      --button-color: #444;
-      --button-hover: #606060;
-      --gray-bar: #999;
-    }
-
-    [data-theme="light"] {
-      --bg-color: #f4f4f4;
-      --card-color: #ffffffcc;
-      --text-color: #1a1a1a;
-      --subtext-color: #444;
-      --button-color: #e0e0e0;
-      --button-hover: #cfcfcf;
-      --gray-bar: #888;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: var(--bg-color);
-      background-image: url('https://files.catbox.moe/zrezka.jpg');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      color: var(--text-color);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.5s, color 0.5s;
-    }
-
-    .container {
-      background: rgba(20, 20, 20, 0.75);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 25px;
-      padding: 30px;
-      width: 90%;
-      max-width: 500px;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-      text-align: center;
-      animation: fadeIn 1.5s ease-in-out;
-      position: relative;
-    }
-
-    [data-theme="light"] .container {
-      background: rgba(255, 255, 255, 0.8);
-      border: 1px solid rgba(0, 0, 0, 0.1);
-      backdrop-filter: blur(8px);
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    img.profile {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid var(--gray-bar);
-      margin-bottom: 15px;
-    }
-
-    h1 {
-      font-size: 26px;
-      margin-bottom: 5px;
-    }
-
-    p.role {
-      color: var(--subtext-color);
-      margin-bottom: 10px;
-    }
-
-    .typing-text {
-      font-size: 13px;
-      color: var(--subtext-color);
-      height: 18px;
-      margin-bottom: 20px;
-    }
-
-    .bio-link {
-      background: linear-gradient(135deg, var(--button-color), var(--button-hover));
-      padding: 15px 20px;
-      margin: 12px 0;
-      border-radius: 15px;
-      color: var(--text-color);
-      display: block;
-      text-decoration: none;
-      transition: all 0.4s ease;
-      font-weight: 500;
-      border: 2px solid transparent;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .bio-link::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-      transition: left 0.5s;
-    }
-
-    .bio-link:hover::before {
-      left: 100%;
-    }
-
-    .bio-link:hover {
-      background: linear-gradient(135deg, var(--button-hover), #7a7a7a);
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-      border-color: var(--gray-bar);
-    }
-
-    .music-player-content {
-      background: 
-        linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)),
-        url('https://files.catbox.moe/9cq0yk.jpg');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      border-radius: 15px;
-      padding: 20px;
-      border: 1px solid var(--gray-bar);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(10px);
-      max-width: 100%;
-      position: relative;
-      overflow: hidden;
-    }
-
-    [data-theme="light"] .music-player-content {
-      background: 
-        linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.6)),
-        url('https://files.catbox.moe/9cq0yk.jpg');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
-
-    .music-player-content::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(45deg, 
-        rgba(29, 185, 84, 0.1) 0%, 
-        rgba(255, 107, 107, 0.1) 25%,
-        rgba(75, 192, 192, 0.1) 50%,
-        rgba(255, 193, 7, 0.1) 75%,
-        rgba(156, 39, 176, 0.1) 100%);
-      border-radius: 15px;
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    .music-player-content > * {
-      position: relative;
-      z-index: 2;
-    }
-
-    .music-controls {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      justify-content: center;
-      margin: 15px 0;
-    }
-
-    @media (max-width: 480px) {
-      .music-player-content {
-        padding: 15px;
-      }
-
-      .music-controls {
-        gap: 8px;
-      }
-    }
-
-    .music-btn {
-      background: linear-gradient(135deg, #1db954, #1ed760);
-      color: white;
-      border: none;
-      padding: 12px 16px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(29, 185, 84, 0.3);
-      font-size: 16px;
-      width: 50px;
-      height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .music-btn:hover {
-      transform: translateY(-2px) scale(1.05);
-      box-shadow: 0 6px 20px rgba(29, 185, 84, 0.4);
-      background: linear-gradient(135deg, #1ed760, #1db954);
-    }
-
-    .music-btn:active {
-      transform: translateY(0) scale(0.98);
-    }
-
-    .music-control-btn {
-      background: var(--button-color);
-      color: var(--text-color);
-      border: none;
-      padding: 8px 12px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 14px;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .music-control-btn:hover {
-      background: var(--button-hover);
-      transform: translateY(-1px) scale(1.05);
-    }
-
-    .music-control-btn.shuffle-active {
-      background: linear-gradient(135deg, #ff6b6b, #ee5a52);
-      color: white;
-    }
-
-    .volume-control {
-      margin: 15px 0;
-    }
-
-    .volume-container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 10px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 15px;
-      border: 1px solid var(--gray-bar);
-    }
-
-    .volume-icon {
-      font-size: 16px;
-      min-width: 20px;
-    }
-
-    .volume-slider {
-      flex: 1;
-      max-width: 120px;
-      height: 6px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 3px;
-      outline: none;
-      cursor: pointer;
-      -webkit-appearance: none;
-      appearance: none;
-    }
-
-    .volume-slider::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 16px;
-      height: 16px;
-      background: linear-gradient(135deg, #1db954, #1ed760);
-      border-radius: 50%;
-      cursor: pointer;
-      box-shadow: 0 2px 8px rgba(29, 185, 84, 0.3);
-    }
-
-    .volume-slider::-moz-range-thumb {
-      width: 16px;
-      height: 16px;
-      background: linear-gradient(135deg, #1db954, #1ed760);
-      border-radius: 50%;
-      cursor: pointer;
-      border: none;
-      box-shadow: 0 2px 8px rgba(29, 185, 84, 0.3);
-    }
-
-    .volume-value {
-      font-size: 12px;
-      color: var(--subtext-color);
-      min-width: 35px;
-      text-align: right;
-      font-weight: 600;
-    }
-
-    @media (max-width: 480px) {
-      .music-btn {
-        width: 45px;
-        height: 45px;
-        font-size: 14px;
-      }
-
-      .music-control-btn {
-        width: 36px;
-        height: 36px;
-        font-size: 12px;
-      }
-
-      .volume-container {
-        gap: 8px;
-        padding: 8px;
-      }
-
-      .volume-slider {
-        max-width: 100px;
-      }
-    }
-
-    .music-info {
-      text-align: center;
-      margin: 15px 0;
-    }
-
-    .track-name {
-      font-size: 14px;
-      color: var(--text-color);
-      font-weight: 600;
-      margin-bottom: 5px;
-    }
-
-    .track-artist {
-      font-size: 12px;
-      color: var(--subtext-color);
-    }
-
-    .music-progress {
-      margin-top: 15px;
-    }
-
-    .progress-bar {
-      width: 100%;
-      height: 4px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 2px;
-      overflow: hidden;
-      margin-bottom: 8px;
-      cursor: pointer;
-    }
-
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #1db954, #1ed760);
-      width: 0%;
-      transition: width 0.1s ease;
-    }
-
-    .music-time {
-      font-size: 12px;
-      color: var(--subtext-color);
-      font-weight: 500;
-      text-align: center;
-    }
-
-    .music-animation {
-      display: none;
-      justify-content: center;
-      align-items: center;
-      margin: 10px 0;
-    }
-
-    .music-animation.playing {
-      display: flex;
-    }
-
-    .music-bar {
-      width: 3px;
-      height: 20px;
-      background: linear-gradient(to top, #ff6b6b, #ff9800);
-      margin: 0 2px;
-      animation: musicBounce 1s ease-in-out infinite;
-      border-radius: 3px;
-    }
-
-    .music-bar:nth-child(2) { animation-delay: 0.1s; }
-    .music-bar:nth-child(3) { animation-delay: 0.2s; }
-    .music-bar:nth-child(4) { animation-delay: 0.3s; }
-    .music-bar:nth-child(5) { animation-delay: 0.4s; }
-
-    @keyframes musicBounce {
-      0%, 100% { transform: scaleY(0.3); }
-      50% { transform: scaleY(1); }
-    }
-
-    
-
-    .toggle-theme {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: var(--button-color);
-      border: 2px solid var(--gray-bar);
-      border-radius: 50%;
-      width: 45px;
-      height: 45px;
-      font-size: 18px;
-      color: var(--text-color);
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    }
-
-    .toggle-theme:hover {
-      transform: rotate(180deg) scale(1.1);
-      background: var(--button-hover);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-    }
-
-    .spoiler-container {
-      margin: 20px 0;
-      border-radius: 16px;
-      overflow: hidden;
-      background: linear-gradient(135deg, 
-        rgba(29, 185, 84, 0.12) 0%, 
-        rgba(255, 107, 107, 0.12) 25%,
-        rgba(75, 192, 192, 0.12) 50%,
-        rgba(255, 193, 7, 0.12) 75%,
-        rgba(156, 39, 176, 0.12) 100%);
-      backdrop-filter: blur(20px);
-      border: 2px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 
-        0 12px 40px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.2);
-      position: relative;
-      transition: all 0.3s ease;
-    }
-
-    .spoiler-container:hover {
-      transform: translateY(-2px);
-      box-shadow: 
-        0 16px 50px rgba(0, 0, 0, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.2);
-      border-color: rgba(255, 255, 255, 0.3);
-    }
-
-    [data-theme="light"] .spoiler-container {
-      background: linear-gradient(135deg, 
-        rgba(74, 144, 226, 0.08) 0%, 
-        rgba(80, 227, 194, 0.08) 25%,
-        rgba(245, 166, 35, 0.08) 50%,
-        rgba(233, 30, 99, 0.08) 75%,
-        rgba(156, 39, 176, 0.08) 100%);
-      border: 2px solid rgba(0, 0, 0, 0.12);
-      box-shadow: 
-        0 12px 40px rgba(0, 0, 0, 0.15),
-        inset 0 1px 0 rgba(255, 255, 255, 0.8),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-    }
-
-    [data-theme="light"] .spoiler-container:hover {
-      box-shadow: 
-        0 16px 50px rgba(0, 0, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.9),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-      border-color: rgba(0, 0, 0, 0.18);
-    }
-
-    .spoiler-container::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(45deg, 
-        rgba(255, 255, 255, 0.05) 0%, 
-        transparent 25%,
-        rgba(255, 255, 255, 0.02) 50%,
-        transparent 75%,
-        rgba(255, 255, 255, 0.05) 100%);
-      border-radius: 18px;
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    .spoiler-header {
-      background: linear-gradient(135deg, 
-        rgba(255, 255, 255, 0.15) 0%, 
-        rgba(255, 255, 255, 0.08) 100%);
-      padding: 20px 28px;
-      color: var(--text-color);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-weight: 700;
-      font-size: 15px;
-      position: relative;
-      z-index: 2;
-      border-bottom: 2px solid rgba(255, 255, 255, 0.15);
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-    }
-
-    [data-theme="light"] .spoiler-header {
-      background: linear-gradient(135deg, 
-        rgba(0, 0, 0, 0.1) 0%, 
-        rgba(0, 0, 0, 0.06) 100%);
-      border-bottom: 2px solid rgba(0, 0, 0, 0.12);
-      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
-    }
-
-    .spoiler-header::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, 
-        transparent, 
-        rgba(255, 255, 255, 0.15), 
-        transparent);
-      transition: left 0.6s;
-      z-index: -1;
-    }
-
-    .spoiler-header:hover::before {
-      left: 100%;
-    }
-
-    .spoiler-header:hover {
-      background: linear-gradient(135deg, 
-        rgba(255, 255, 255, 0.22) 0%, 
-        rgba(255, 255, 255, 0.12) 100%);
-      transform: translateY(-1px);
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
-      border-bottom-color: rgba(255, 255, 255, 0.25);
-    }
-
-    [data-theme="light"] .spoiler-header:hover {
-      background: linear-gradient(135deg, 
-        rgba(0, 0, 0, 0.15) 0%, 
-        rgba(0, 0, 0, 0.08) 100%);
-      text-shadow: 0 2px 8px rgba(255, 255, 255, 0.9);
-      border-bottom-color: rgba(0, 0, 0, 0.18);
-    }
-
-    .spoiler-arrow {
-      transition: transform 0.4s ease;
-      font-size: 14px;
-      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
-    }
-
-    .spoiler-arrow.open {
-      transform: rotate(180deg);
-    }
-
-    .spoiler-content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s ease, padding 0.4s ease;
-      background: linear-gradient(135deg, 
-        rgba(255, 255, 255, 0.05) 0%, 
-        rgba(255, 255, 255, 0.02) 100%);
-      position: relative;
-      z-index: 2;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    [data-theme="light"] .spoiler-content {
-      background: linear-gradient(135deg, 
-        rgba(0, 0, 0, 0.04) 0%, 
-        rgba(0, 0, 0, 0.02) 100%);
-      border-top: 1px solid rgba(0, 0, 0, 0.08);
-    }
-
-    .spoiler-content.open {
-      max-height: 450px;
-      padding: 28px;
-      overflow-y: auto;
-      border-top: 1px solid rgba(255, 255, 255, 0.15);
-    }
-
-    [data-theme="light"] .spoiler-content.open {
-      border-top: 1px solid rgba(0, 0, 0, 0.12);
-    }
-
-    .spoiler-info {
-      font-size: 14px;
-      color: var(--subtext-color);
-      line-height: 1.8;
-      word-wrap: break-word;
-      overflow-wrap: break-word;
-      white-space: normal;
-      background: rgba(255, 255, 255, 0.06);
-      padding: 24px;
-      border-radius: 12px;
-      border: 2px solid rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(15px);
-      box-shadow: 
-        inset 0 2px 8px rgba(0, 0, 0, 0.2),
-        0 4px 16px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
-    }
-
-    .spoiler-info:hover {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(255, 255, 255, 0.18);
-      transform: translateY(-1px);
-      box-shadow: 
-        inset 0 2px 8px rgba(0, 0, 0, 0.2),
-        0 6px 20px rgba(0, 0, 0, 0.15);
-    }
-
-    [data-theme="light"] .spoiler-info {
-      background: rgba(0, 0, 0, 0.04);
-      border: 2px solid rgba(0, 0, 0, 0.1);
-      box-shadow: 
-        inset 0 2px 8px rgba(0, 0, 0, 0.08),
-        0 4px 16px rgba(0, 0, 0, 0.05);
-    }
-
-    [data-theme="light"] .spoiler-info:hover {
-      background: rgba(0, 0, 0, 0.06);
-      border-color: rgba(0, 0, 0, 0.14);
-      box-shadow: 
-        inset 0 2px 8px rgba(0, 0, 0, 0.08),
-        0 6px 20px rgba(0, 0, 0, 0.08);
-    }
-
-    .spoiler-info strong {
-      color: var(--text-color);
-      display: block;
-      margin-bottom: 12px;
-      font-size: 15px;
-      font-weight: 700;
-      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-    }
-
-    .spoiler-info br {
-      line-height: 2.2;
-    }
-
-    .spoiler-info a {
-      display: inline-block;
-      margin-top: 15px;
-      padding: 10px 20px;
-      background: linear-gradient(135deg, #25d366, #1db954);
-      color: white;
-      text-decoration: none;
-      border-radius: 25px;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-    }
-
-    .spoiler-info a:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
-      background: linear-gradient(135deg, #1db954, #25d366);
-    }
-
-    .video-player-content {
-      background: linear-gradient(135deg, var(--card-color), rgba(255, 255, 255, 0.05));
-      border-radius: 15px;
-      padding: 20px;
-      border: 1px solid var(--gray-bar);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      backdrop-filter: blur(10px);
-      max-width: 100%;
-    }
-
-    .video-info {
-      text-align: center;
-      margin-bottom: 15px;
-    }
-
-    .video-title {
-      font-size: 18px;
-      color: var(--text-color);
-      font-weight: 700;
-      margin-bottom: 5px;
-    }
-
-    .video-artist {
-      font-size: 14px;
-      color: var(--subtext-color);
-      margin-bottom: 15px;
-    }
-
-    .video-details {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-      margin-bottom: 15px;
-    }
-
-    .detail-item {
-      font-size: 12px;
-      color: var(--subtext-color);
-      background: rgba(255, 255, 255, 0.05);
-      padding: 5px 10px;
-      border-radius: 10px;
-      border: 1px solid var(--gray-bar);
-    }
-
-    .video-container {
-      position: relative;
-      width: 100%;
-      height: 0;
-      padding-bottom: 56.25%; /* 16:9 aspect ratio */
-      margin: 15px 0;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    }
-
-    .video-container iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border-radius: 10px;
-    }
-
-    .video-controls {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      justify-content: center;
-      margin: 15px 0;
-      flex-wrap: wrap;
-    }
-
-    .video-btn {
-      background: linear-gradient(135deg, #ff0000, #cc0000);
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
-      font-size: 14px;
-      min-width: 80px;
-    }
-
-    .video-btn:hover {
-      transform: translateY(-2px) scale(1.05);
-      box-shadow: 0 6px 20px rgba(255, 0, 0, 0.4);
-      background: linear-gradient(135deg, #cc0000, #ff0000);
-    }
-
-    .video-btn:active {
-      transform: translateY(0) scale(0.98);
-    }
-
-    .video-music-player {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.05));
-      border: 1px solid var(--gray-bar);
-      border-radius: 15px;
-      padding: 20px;
-      margin: 20px 0;
-      backdrop-filter: blur(10px);
-    }
-
-    .music-divider {
-      text-align: center;
-      margin-bottom: 15px;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text-color);
-      position: relative;
-    }
-
-    .music-divider::before,
-    .music-divider::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      width: 30%;
-      height: 1px;
-      background: var(--gray-bar);
-    }
-
-    .music-divider::before {
-      left: 0;
-    }
-
-    .music-divider::after {
-      right: 0;
-    }
-
-    .video-music-player .music-info {
-      text-align: center;
-      margin: 15px 0;
-    }
-
-    .video-music-player .track-name {
-      font-size: 16px;
-      color: var(--text-color);
-      font-weight: 700;
-      margin-bottom: 5px;
-    }
-
-    .video-music-player .track-artist {
-      font-size: 14px;
-      color: var(--subtext-color);
-      margin-bottom: 10px;
-    }
-
-    .video-music-player .music-controls {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      justify-content: center;
-      margin: 15px 0;
-    }
-
-    .video-music-player .volume-control {
-      margin: 15px 0;
-    }
-
-    .video-music-player .music-progress {
-      margin-top: 15px;
-    }
-
-    .song-description {
-      margin-top: 20px;
-      padding-top: 15px;
-      border-top: 1px solid var(--gray-bar);
-    }
-
-    .song-description h4 {
-      font-size: 14px;
-      color: var(--text-color);
-      margin-bottom: 8px;
-      font-weight: 600;
-    }
-
-    .song-description p {
-      font-size: 12px;
-      color: var(--subtext-color);
-      line-height: 1.6;
-      margin-bottom: 15px;
-    }
-
-    .song-description ul {
-      font-size: 12px;
-      color: var(--subtext-color);
-      margin-left: 15px;
-      margin-bottom: 15px;
-    }
-
-    .song-description li {
-      margin-bottom: 5px;
-    }
-
-    @media (max-width: 480px) {
-      .video-player-content {
-        padding: 15px;
-      }
-
-      .video-controls {
-        gap: 8px;
-      }
-
-      .video-btn {
-        padding: 8px 12px;
-        font-size: 12px;
-        min-width: 70px;
-      }
-
-      .detail-item {
-        font-size: 11px;
-        padding: 4px 8px;
-      }
-
-      .video-title {
-        font-size: 16px;
-      }
-
-      .video-artist {
-        font-size: 13px;
-      }
-
-      .song-description h4 {
-        font-size: 13px;
-      }
-
-      .song-description p, .song-description ul {
-        font-size: 11px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .spoiler-container {
-        margin: 15px 0;
-        border-radius: 18px;
-      }
-
-      .spoiler-content.open {
-        max-height: 500px;
-        padding: 20px;
-        overflow-y: auto;
-      }
-
-      .spoiler-info {
-        font-size: 13px;
-        line-height: 1.7;
-        padding: 18px;
-      }
-
-      .spoiler-info strong {
-        font-size: 14px;
-        margin-bottom: 10px;
-      }
-
-      .spoiler-info a {
-        padding: 8px 16px;
-        font-size: 13px;
-        margin-top: 12px;
-      }
-
-      .spoiler-header {
-        padding: 16px 20px;
-        font-size: 13px;
-      }
-
-      .spoiler-arrow {
-        font-size: 13px;
-      }
-
-      .container {
-        padding: 25px 20px;
-        width: 95%;
-      }
-    }
-
-    @media (max-width: 360px) {
-      .spoiler-content.open {
-        max-height: 500px;
-        padding: 16px;
-      }
-
-      .spoiler-info {
-        font-size: 11px;
-        line-height: 1.9;
-      }
-
-      .spoiler-header {
-        padding: 12px 14px;
-        font-size: 12px;
-      }
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin-top: 25px;
-    }
-
-    @media (min-width: 768px) {
-      .stats-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    .stat-card {
-      background: var(--card-color);
-      border: 2px solid var(--gray-bar);
-      border-radius: 15px;
-      padding: 15px;
-      text-align: center;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      background-image: 
-        linear-gradient(135deg, rgba(29, 185, 84, 0.1) 0%, rgba(255, 107, 107, 0.1) 50%, rgba(75, 192, 192, 0.1) 100%),
-        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(255, 177, 153, 0.15) 0%, transparent 50%);
-      backdrop-filter: blur(10px);
-    }
-
-    [data-theme="light"] .stat-card {
-      background-image: 
-        linear-gradient(135deg, rgba(74, 144, 226, 0.08) 0%, rgba(80, 227, 194, 0.08) 50%, rgba(245, 166, 35, 0.08) 100%),
-        radial-gradient(circle at 20% 80%, rgba(156, 39, 176, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(233, 30, 99, 0.1) 0%, transparent 50%);
-    }
-
-    .stat-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: left 0.5s;
-    }
-
-    .stat-card:hover::before {
-      left: 100%;
-    }
-
-    .stat-card:hover {
-      transform: translateY(-5px) scale(1.05);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-      border-color: var(--text-color);
-      background-image: 
-        linear-gradient(135deg, rgba(29, 185, 84, 0.2) 0%, rgba(255, 107, 107, 0.2) 50%, rgba(75, 192, 192, 0.2) 100%),
-        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.25) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(255, 177, 153, 0.25) 0%, transparent 50%);
-    }
-
-    [data-theme="light"] .stat-card:hover {
-      background-image: 
-        linear-gradient(135deg, rgba(74, 144, 226, 0.15) 0%, rgba(80, 227, 194, 0.15) 50%, rgba(245, 166, 35, 0.15) 100%),
-        radial-gradient(circle at 20% 80%, rgba(156, 39, 176, 0.18) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(233, 30, 99, 0.18) 0%, transparent 50%);
-    }
-
-    .stat-icon {
-      font-size: 20px;
-      margin-bottom: 8px;
-    }
-
-    .stat-label {
-      font-size: 11px;
-      color: var(--subtext-color);
-      margin-bottom: 8px;
-      font-weight: 500;
-    }
-
-    .stat-value {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text-color);
-      line-height: 1.2;
-      margin-bottom: 8px;
-    }
-
-    .stat-description {
-      font-size: 10px;
-      color: var(--subtext-color);
-      line-height: 1.4;
-      text-align: center;
-      opacity: 0.8;
-      font-weight: 400;
-      padding-top: 5px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    [data-theme="light"] .stat-description {
-      border-top: 1px solid rgba(0, 0, 0, 0.1);
-    }
-
-    footer {
-      margin-top: 25px;
-      font-size: 12px;
-      color: var(--subtext-color);
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body data-theme="dark">
 
   <div class="container">
-    <button class="toggle-theme" onclick="toggleTheme()">🌗</button>
+    <button class="toggle-theme" onclick="toggleTheme()" aria-label="Toggle theme">🌗</button>
 
-    <img src="https://files.catbox.moe/zrezka.jpg" alt="Foto Profil" class="profile" />
+    <img src="https://files.catbox.moe/zrezka.jpg" alt="Foto Profil Bang Wily" class="profile" />
     <h1>Bang Wily</h1>
-    <p class="role">Creative Content Creator | Digital Entrepreneur</p>
+    <p class="role">🚀 Creative Content Creator | Digital Entrepreneur</p>
     <div class="typing-text" id="typing"></div>
 
     <div class="music-player-content">
       <div class="music-info">
-        <div class="track-name" id="track-name">Music Track</div>
-        <div class="track-artist" id="track-artist">Unknown Artist</div>
+        <div class="track-name" id="track-name">🎵 Music Player</div>
+        <div class="track-artist" id="track-artist">Klik play untuk memulai</div>
       </div>
 
       <div class="music-animation" id="music-animation">
@@ -1125,1019 +33,228 @@
       </div>
 
       <div class="music-controls">
-        <button class="music-control-btn" onclick="previousTrack()">⏮️</button>
-        <button class="music-btn" onclick="toggleMusic()">▶️</button>
-        <button class="music-control-btn" onclick="nextTrack()">⏭️</button>
-        <button class="music-control-btn" onclick="toggleShuffle()">🔀</button>
+        <button class="music-control-btn" onclick="previousTrack()" aria-label="Previous track">⏮️</button>
+        <button class="music-btn" onclick="toggleMusic()" aria-label="Play/Pause">▶️</button>
+        <button class="music-control-btn" onclick="nextTrack()" aria-label="Next track">⏭️</button>
+        <button class="music-control-btn" onclick="toggleShuffle()" aria-label="Toggle shuffle">🔀</button>
       </div>
 
       <div class="volume-control">
         <div class="volume-container">
           <span class="volume-icon">🔊</span>
-          <input type="range" class="volume-slider" id="volume-slider" min="0" max="100" value="50">
+          <input type="range" class="volume-slider" id="volume-slider" min="0" max="100" value="50" aria-label="Volume control">
           <span class="volume-value" id="volume-value">50%</span>
         </div>
       </div>
 
       <div class="music-progress">
-        <div class="progress-bar" id="progress-bar">
+        <div class="progress-bar" id="progress-bar" aria-label="Music progress">
           <div class="progress-fill" id="progress-fill"></div>
         </div>
         <div class="music-time" id="music-time">00:00 / 00:00</div>
       </div>
     </div>
 
-    <div class="spoiler-container">
-      <div class="spoiler-header" onclick="toggleSpoiler('whatsapp')">
-        <span>📱 Nomer Owner</span>
-        <span class="spoiler-arrow" id="whatsapp-arrow">▼</span>
+    <div class="main-spoiler-container">
+      <div class="main-spoiler-header" onclick="toggleSpoiler('allinfo')">
+        <span>📋 Informasi Lengkap & Layanan</span>
+        <span class="spoiler-arrow" id="allinfo-arrow">▼</span>
       </div>
-      <div class="spoiler-content" id="whatsapp-content">
-        <div class="spoiler-info">          <strong>💬 Chat Langsung dengan Kenn!</strong><br>
-          📞 Nomor: +62 896-8820-6739<br>
-          🕐 Online: 08:00 - 22:00 WIB<br>
-          💻 Hobi coding & programming<br>
-          🤖 Developer bot WhatsApp<br>
-          💼 Konsultasi script & automation<br>
-          <a href="https://wa.me/6289688206739" target="_blank" style="color: #25d366; text-decoration: none; font-weight: bold;">➤ Buka WhatsApp</a>
+      <div class="spoiler-content" id="allinfo-content">
+        <div class="sub-spoiler-grid">
+          
+          <div class="sub-spoiler-box" onclick="toggleSubSpoiler('whatsapp')">
+            <div class="sub-spoiler-header">
+              <span class="sub-spoiler-icon">📱</span>
+              <span class="sub-spoiler-title">Nomer Owner</span>
+              <span class="sub-spoiler-arrow" id="whatsapp-sub-arrow">▼</span>
+            </div>
+            <div class="sub-spoiler-content" id="whatsapp-sub-content">
+              <div class="sub-spoiler-info">
+                <strong>💬 Chat Langsung dengan Bang Wily!</strong><br>
+                📞 Nomor: +62 896-8820-6739<br>
+                🕐 Online: 08:00 - 22:00 WIB<br>
+                💻 Hobi coding & programming<br>
+                🤖 Developer bot WhatsApp<br>
+                💼 Konsultasi script & automation<br>
+                <a href="https://wa.me/6289688206739" target="_blank" class="sub-button">➤ Buka WhatsApp</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="sub-spoiler-box" onclick="toggleSubSpoiler('wachannel')">
+            <div class="sub-spoiler-header">
+              <span class="sub-spoiler-icon">📢</span>
+              <span class="sub-spoiler-title">Info Anime & Entertainment</span>
+              <span class="sub-spoiler-arrow" id="wachannel-sub-arrow">▼</span>
+            </div>
+            <div class="sub-spoiler-content" id="wachannel-sub-content">
+              <div class="sub-spoiler-info">
+                <strong>📡 Channel Info Anime & Entertainment!</strong><br>
+                🎌 Update anime terbaru & review<br>
+                📺 Rekomendasi anime seasonal<br>
+                🎭 Info seputar budaya Jepang<br>
+                📰 Berita entertainment Asia<br>
+                🎵 Update J-Pop & soundtrack anime<br>
+                <a href="https://www.whatsapp.com/channel/0029VaiyhS37IUYSuDJoJj1L" target="_blank" class="sub-button">➤ Join Channel</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="sub-spoiler-box" onclick="toggleSubSpoiler('whatsappgroup')">
+            <div class="sub-spoiler-header">
+              <span class="sub-spoiler-icon">👥</span>
+              <span class="sub-spoiler-title">GRUP AUTO BACA STORY [V-2] ✅</span>
+              <span class="sub-spoiler-arrow" id="whatsappgroup-sub-arrow">▼</span>
+            </div>
+            <div class="sub-spoiler-content" id="whatsappgroup-sub-content">
+              <div class="sub-spoiler-info">
+                <strong>👥 Gabung Grup Script Auto Story!</strong><br>
+                🤖 Bagikan script bot auto reaction story<br>
+                📱 Tutorial auto baca & react story WA<br>
+                ⚡ Tools bot automation WhatsApp<br>
+                🔧 Update script terbaru & perbaikan<br>
+                💎 Script premium & download gratis<br>
+                🎯 Komunitas penggemar auto story<br>
+                <a href="https://chat.whatsapp.com/KfQ6UV17agpLuqHGTOeh9g" target="_blank" class="sub-button">➤ Gabung Grup WhatsApp</a>
+              </div>
+            </div>
+          </div>
+
+          
+
+          <div class="sub-spoiler-box" onclick="toggleSubSpoiler('age')">
+            <div class="sub-spoiler-header">
+              <span class="sub-spoiler-icon">👤</span>
+              <span class="sub-spoiler-title">Profil & Informasi Lengkap</span>
+              <span class="sub-spoiler-arrow" id="age-sub-arrow">▼</span>
+            </div>
+            <div class="sub-spoiler-content" id="age-sub-content">
+              <div class="sub-spoiler-info">
+                <strong>👨‍💻 Profil Lengkap Bang Wily</strong><br>
+                🎂 Usia: 23 Tahun (Lahir 14 Juli 2001)<br>
+                📍 Lokasi: Jakarta, Indonesia<br>
+                🎓 Pendidikan: S1 Teknik Informatika<br>
+                💼 Pekerjaan: Full Stack Developer & Content Creator<br>
+                🏆 Pengalaman: 5+ tahun di bidang programming<br>
+                🌟 Keahlian: JavaScript, Python, Bot Development<br>
+                🎯 Spesialisasi: WhatsApp Bot & Web Development<br>
+                📈 Project Selesai: 150+ aplikasi & bot<br>
+                🔥 Bahasa Pemrograman: JS, Python, PHP, HTML/CSS<br>
+                💎 Tools Favorit: Node.js, React, Express, MongoDB<br>
+                🎪 Hobi: Gaming, Anime, Coding, Music Production<br>
+                📚 Sertifikasi: Google Developer, Meta Developer<br>
+                <strong>🌐 Visi:</strong> Membantu developer Indonesia dengan script berkualitas tinggi dan tutorial yang mudah dipahami
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
 
-    <div class="spoiler-container">
-      <div class="spoiler-header" onclick="toggleSpoiler('wachannel')">
-        <span>📢 Info Seputar Anime Dll 👤</span>
-        <span class="spoiler-arrow" id="wachannel-arrow">▼</span>
-      </div>
-      <div class="spoiler-content" id="wachannel-content">
-        <div class="spoiler-info">
-          <strong>📡 Channel Info Anime & Entertainment!</strong><br>
-          🎌 Update anime terbaru & review<br>
-          📺 Rekomendasi anime seasonal<br>
-          🎭 Info seputar budaya Jepang<br>
-          📰 Berita entertainment Asia<br>
-          🎵 Update J-Pop & soundtrack anime<br>
-          <a href="https://www.whatsapp.com/channel/0029VaiyhS37IUYSuDJoJj1L" target="_blank" style="color: #25d366; text-decoration: none; font-weight: bold;">➤ Join Channel</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="spoiler-container">
-      <div class="spoiler-header" onclick="toggleSpoiler('whatsappgroup')">
-        <span>👥 GRUP AUTO BACA STORY [V-2] ✅</span>
-        <span class="spoiler-arrow" id="whatsappgroup-arrow">▼</span>
-      </div>
-      <div class="spoiler-content" id="whatsappgroup-content">
-        <div class="spoiler-info">
-          <strong>👥 Gabung Grup Script Auto Story!</strong><br>
-          🤖 Bagikan script bot auto reaction story<br>
-          📱 Tutorial auto baca & react story WA<br>
-          ⚡ Tools bot automation WhatsApp<br>
-          🔧 Update script terbaru & perbaikan<br>
-          💎 Script premium & download gratis<br>
-          🎯 Komunitas penggemar auto story<br>
-          <a href="https://chat.whatsapp.com/KfQ6UV17agpLuqHGTOeh9g" target="_blank" style="color: #25d366; text-decoration: none; font-weight: bold;">➤ Gabung Grup WhatsApp</a>
-        </div>
-      </div>
-    </div>
-
-
-
-    <div class="spoiler-container">
-      <div class="spoiler-header" onclick="toggleSpoiler('download')">
+    <div class="main-spoiler-container" id="download-script-spoiler">
+      <div class="main-spoiler-header" onclick="toggleSpoiler('downloadscript')">
         <span>📥 Download Script Bot Gratis</span>
-        <span class="spoiler-arrow" id="download-arrow">▼</span>
+        <span class="spoiler-arrow" id="downloadscript-arrow">▼</span>
       </div>
-      <div class="spoiler-content" id="download-content">
-        <div class="spoiler-info">
-          <strong>🤖 Download Script Auto Reaction Story!</strong><br>
-          ⚡ Auto reaction story WhatsApp otomatis<br>
-          📱 Auto baca story dengan emoji kustom<br>
-          🎯 Target kontak & grup tertentu<br>
-          ⏰ Jadwal waktu auto reaction<br>
-          🔧 Setup mudah & konfigurasi simple<br>
-          💎 Source code lengkap disertakan<br>
-          <a href="linkdownload.html" style="color: #6f42c1; text-decoration: none; font-weight: bold;">➤ Download Script</a>
+      <div class="spoiler-content" id="downloadscript-content">
+        <div class="sub-spoiler-grid">
+          
+          <div class="sub-spoiler-box" onclick="toggleSubSpoiler('latestversion')">
+            <div class="sub-spoiler-header">
+              <span class="sub-spoiler-icon">🔥</span>
+              <span class="sub-spoiler-title">Version Terbaru V9.0.0</span>
+              <span class="sub-spoiler-arrow" id="latestversion-sub-arrow">▼</span>
+            </div>
+            <div class="sub-spoiler-content" id="latestversion-sub-content">
+              <div class="sub-spoiler-info">
+                <strong>🚀 Script Auto Reaction Story Terbaru!</strong><br>
+                ⚡ Auto reaction story WhatsApp otomatis<br>
+                📱 Support Multi Device (MD)<br>
+                🎯 Mode Self & Public tersedia<br>
+                🔧 Base code terbaru dan stabil<br>
+                💎 Setup mudah & konfigurasi simple<br>
+                🆕 Update: 16 Juli 2025<br>
+                <a href="linkdownload.html" class="sub-button">➤ Download Semua Version</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="sub-spoiler-box" onclick="toggleSubSpoiler('features')">
+            <div class="sub-spoiler-header">
+              <span class="sub-spoiler-icon">⭐</span>
+              <span class="sub-spoiler-title">Fitur Script</span>
+              <span class="sub-spoiler-arrow" id="features-sub-arrow">▼</span>
+            </div>
+            <div class="sub-spoiler-content" id="features-sub-content">
+              <div class="sub-spoiler-info">
+                <strong>🎯 Fitur Lengkap Auto Story!</strong><br>
+                🤖 Auto reaction dengan emoji kustom<br>
+                📊 Target kontak & grup tertentu<br>
+                ⏰ Jadwal waktu auto reaction<br>
+                🔄 Auto reconnect jika terputus<br>
+                📈 Real-time status monitoring<br>
+                💾 Backup & restore konfigurasi<br>
+                🛡️ Enhanced security features<br>
+                <a href="linkdownload.html" class="sub-button">➤ Lihat Semua Fitur</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="sub-spoiler-box" onclick="toggleSubSpoiler('tutorial')">
+            <div class="sub-spoiler-header">
+              <span class="sub-spoiler-icon">📖</span>
+              <span class="sub-spoiler-title">Tutorial & Panduan</span>
+              <span class="sub-spoiler-arrow" id="tutorial-sub-arrow">▼</span>
+            </div>
+            <div class="sub-spoiler-content" id="tutorial-sub-content">
+              <div class="sub-spoiler-info">
+                <strong>📚 Panduan Lengkap Setup Script!</strong><br>
+                🔧 Tutorial instalasi step by step<br>
+                ⚙️ Konfigurasi script yang benar<br>
+                🎥 Video tutorial di YouTube<br>
+                💬 Support grup WhatsApp<br>
+                🆘 Troubleshooting masalah umum<br>
+                📋 Documentation lengkap<br>
+                <a href="https://chat.whatsapp.com/KfQ6UV17agpLuqHGTOeh9g" target="_blank" class="sub-button">➤ Join Grup Support</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="sub-spoiler-box" onclick="toggleSubSpoiler('premium')">
+            <div class="sub-spoiler-header">
+              <span class="sub-spoiler-icon">💎</span>
+              <span class="sub-spoiler-title">Version Premium</span>
+              <span class="sub-spoiler-arrow" id="premium-sub-arrow">▼</span>
+            </div>
+            <div class="sub-spoiler-content" id="premium-sub-content">
+              <div class="sub-spoiler-info">
+                <strong>👑 Script Premium Eksklusif!</strong><br>
+                🔓 Akses script premium dengan donasi<br>
+                🎯 Fitur advanced & ekslusif<br>
+                ⚡ Priority support dari developer<br>
+                🆕 Update lebih awal dari versi gratis<br>
+                🛠️ Custom request fitur<br>
+                💰 Support developer dengan donasi<br>
+                <a href="https://saweria.co/bangwily" target="_blank" class="sub-button">➤ Donasi untuk Premium</a>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
 
-    <div class="spoiler-container">
-      <div class="spoiler-header" onclick="toggleSpoiler('age')">
-        <span>👤 Profil & Informasi Usia</span>
-        <span class="spoiler-arrow" id="age-arrow">▼</span>
-      </div>
-      <div class="spoiler-content" id="age-content">
-        <div class="spoiler-info">
-          <strong>👨‍💻 Profil Lengkap Bang Wily</strong><br>
-          🎂 Usia: 23 Tahun (Lahir 14 Juli 2001)<br>
-          📍 Lokasi: Jakarta, Indonesia<br>
-          🎓 Pendidikan: S1 Teknik Informatika<br>
-          💼 Pekerjaan: Full Stack Developer & Content Creator<br>
-          🏆 Pengalaman: 5+ tahun di bidang programming<br>
-          🌟 Keahlian: JavaScript, Python, Bot Development<br>
-          🎯 Spesialisasi: WhatsApp Bot & Web Development<br>
-          📈 Project Selesai: 150+ aplikasi & bot<br>
-          🔥 Bahasa Pemrograman: JS, Python, PHP, HTML/CSS<br>
-          💎 Tools Favorit: Node.js, React, Express, MongoDB<br>
-          🎪 Hobi: Gaming, Anime, Coding, Music Production<br>
-          📚 Sertifikasi: Google Developer, Meta Developer<br>
-          <strong>🌐 Visi:</strong> Membantu developer Indonesia dengan script berkualitas tinggi dan tutorial yang mudah dipahami
-        </div>
-      </div>
-    </div>
-
-
-
-    <a href="statis.html" class="bio-link">
-      📊 Statistik & Informasi Website
+    <a href="statis.html" class="modern-button">
+      <span>📊</span>
+      <span>Statistik & Informasi Website</span>
     </a>
 
-    <footer>© 2025 BangWily • All rights reserved.</footer>
+    <footer>© 2025 BangWily • Crafted with ❤️ for developers</footer>
   </div>
 
-  <audio id="bg-music" preload="metadata" controls style="display: none;">
-    <source src="./music/YOASOBI「三原色」Official Music Video [nhOhFOoURnE].mp3" type="audio/mpeg">
-    Browser kamu tidak mendukung audio.
-  </audio>
-
-  <script>
-    // Robust Audio Player with better error handling
-    class RobustAudioPlayer {
-      constructor() {
-        this.audio = null;
-        this.playBtn = document.querySelector(".music-btn");
-        this.currentTrack = 0;
-        this.isShuffleOn = false;
-        this.isPlaying = false;
-        this.isInitialized = false;
-        this.retryCount = 0;
-        this.maxRetries = 3;
-
-        // Playlist
-        this.playlist = [
-          {
-            src: "https://files.catbox.moe/o8voe4.mp3",
-            name: "Blue Bird",
-            artist: "Ikimono-gakari"
-          },
-          {
-            src: "https://files.catbox.moe/omanpf.mp3",
-            name: "Sign (サイン)",
-            artist: "FLOW"
-          },
-          {
-            src: "https://files.catbox.moe/6kua0k.mp3",
-            name: "Utakata Hanabi",
-            artist: "Supercell feat. Nagi Yanagi"
-          }
-        ];
-
-        this.init();
-      }
-
-      init() {
-        try {
-          this.createAudioElement();
-          this.setupEventListeners();
-          this.loadTrack(this.currentTrack);
-          this.isInitialized = true;
-          console.log('Robust audio player initialized');
-        } catch (error) {
-          console.error('Audio player init failed:', error);
-          this.showError('Player tidak dapat diinisialisasi');
-        }
-      }
-
-      createAudioElement() {
-        // Remove existing audio element if exists
-        if (this.audio) {
-          this.audio.remove();
-        }
-
-        // Create new audio element with better compatibility
-        this.audio = document.createElement('audio');
-        this.audio.id = 'dynamic-audio';
-        this.audio.preload = 'metadata';
-        this.audio.volume = 0.5;
-        this.audio.crossOrigin = 'anonymous';
-        this.audio.setAttribute('playsinline', '');
-        this.audio.setAttribute('webkit-playsinline', '');
-        
-        // Better mobile support
-        if (navigator.userAgent.match(/iPhone|iPad|iPod|Android/i)) {
-          this.audio.muted = true; // Start muted for mobile autoplay
-        }
-        
-        document.body.appendChild(this.audio);
-      }
-
-      setupEventListeners() {
-        if (!this.audio) return;
-
-        this.audio.addEventListener('canplaythrough', () => {
-          console.log('Audio dapat dimainkan');
-          this.hideLoading();
-          
-          // Auto play jika sedang dalam status playing
-          if (this.isPlaying && this.audio.paused) {
-            this.play().catch(console.error);
-          }
-        });
-
-        this.audio.addEventListener('error', (e) => {
-          console.error('Audio error event:', e);
-          this.handleAudioError();
-        });
-
-        this.audio.addEventListener('ended', () => {
-          // Auto play track berikutnya
-          this.isPlaying = true;
-          this.nextTrack();
-        });
-
-        this.audio.addEventListener('timeupdate', () => {
-          this.updateProgress();
-        });
-
-        this.audio.addEventListener('loadstart', () => {
-          this.showLoading();
-        });
-
-        this.audio.addEventListener('loadedmetadata', () => {
-          console.log('Metadata dimuat untuk:', this.playlist[this.currentTrack].name);
-        });
-      }
-
-      showLoading() {
-        document.getElementById('track-name').textContent = 'Memuat...';
-        document.getElementById('track-artist').textContent = 'Mohon tunggu';
-        this.playBtn.textContent = "⏳";
-      }
-
-      hideLoading() {
-        const track = this.playlist[this.currentTrack];
-        document.getElementById('track-name').textContent = track.name;
-        document.getElementById('track-artist').textContent = track.artist;
-        this.playBtn.textContent = this.isPlaying ? "⏸️" : "▶️";
-      }
-
-      showError(message) {
-        document.getElementById('track-name').textContent = message;
-        
-        // Platform-specific messages
-        const platform = this.detectPlatform();
-        let artistMessage = '';
-        
-        if (message.includes('Klik untuk memutar')) {
-          switch(platform) {
-            case 'vercel':
-              artistMessage = 'Vercel memblokir autoplay - Klik tombol play';
-              break;
-            case 'mobile':
-              artistMessage = 'Mobile browser - Tap untuk memutar';
-              break;
-            default:
-              artistMessage = 'Browser memblokir autoplay - Klik untuk mulai';
-          }
-        } else {
-          artistMessage = message;
-        }
-        
-        document.getElementById('track-artist').textContent = artistMessage;
-        this.playBtn.textContent = "▶️";
-        this.isPlaying = false;
-        document.getElementById('music-animation').classList.remove('playing');
-      }
-
-      detectPlatform() {
-        const hostname = window.location.hostname;
-        const userAgent = navigator.userAgent;
-        
-        if (hostname.includes('vercel.app') || hostname.includes('vercel.com')) {
-          return 'vercel';
-        } else if (hostname.includes('replit.') || hostname.includes('repl.')) {
-          return 'replit';
-        } else if (userAgent.match(/iPhone|iPad|iPod|Android/i)) {
-          return 'mobile';
-        } else {
-          return 'desktop';
-        }
-      }
-
-      handleAudioError() {
-        this.retryCount++;
-        if (this.retryCount < this.maxRetries) {
-          console.log(`Mencoba ulang audio (${this.retryCount}/${this.maxRetries})`);
-          setTimeout(() => {
-            this.loadTrack(this.currentTrack);
-          }, 1000);
-        } else {
-          this.showError('File audio tidak dapat dimuat');
-          this.retryCount = 0;
-        }
-      }
-
-      loadTrack(index) {
-        try {
-          if (!this.audio) return;
-
-          const track = this.playlist[index];
-          this.currentTrack = index;
-
-          // Stop current playback
-          this.stop();
-
-          // Show loading
-          this.showLoading();
-
-          // Set new source
-          this.audio.src = track.src;
-          this.audio.load();
-
-          // Reset retry count untuk track baru
-          this.retryCount = 0;
-
-          console.log('Loading track:', track.name);
-
-        } catch (error) {
-          console.error('Error loading track:', error);
-          this.handleAudioError();
-        }
-      }
-
-      async play() {
-        try {
-          if (!this.audio || !this.isInitialized) {
-            throw new Error('Audio not ready');
-          }
-
-          // Unmute if was muted for autoplay
-          if (this.audio.muted) {
-            this.audio.muted = false;
-          }
-
-          // Wait for audio to be ready
-          if (this.audio.readyState < 2) {
-            console.log('Menunggu audio siap...');
-            await this.waitForAudioReady();
-          }
-
-          const playPromise = this.audio.play();
-
-          if (playPromise !== undefined) {
-            await playPromise;
-          }
-
-          this.isPlaying = true;
-          this.playBtn.textContent = "⏸️";
-          document.getElementById('music-animation').classList.add('playing');
-          console.log('Playback dimulai');
-
-        } catch (error) {
-          console.error('Play error:', error);
-          this.isPlaying = false;
-          this.playBtn.textContent = "▶️";
-          document.getElementById('music-animation').classList.remove('playing');
-
-          if (error.name === 'NotAllowedError') {
-            this.showError('Klik untuk memutar audio');
-          } else if (error.name === 'NotSupportedError') {
-            this.showError('Format audio tidak didukung');
-          } else {
-            this.showError('Tidak dapat memutar');
-          }
-        }
-      }
-
-      waitForAudioReady() {
-        return new Promise((resolve, reject) => {
-          if (this.audio.readyState >= 2) {
-            resolve();
-            return;
-          }
-
-          let timeout = setTimeout(() => {
-            reject(new Error('Audio load timeout'));
-          }, 10000);
-
-          const onCanPlay = () => {
-            clearTimeout(timeout);
-            this.audio.removeEventListener('canplaythrough', onCanPlay);
-            this.audio.removeEventListener('error', onError);
-            resolve();
-          };
-
-          const onError = () => {
-            clearTimeout(timeout);
-            this.audio.removeEventListener('canplaythrough', onCanPlay);
-            this.audio.removeEventListener('error', onError);
-            reject(new Error('Audio load failed'));
-          };
-
-          this.audio.addEventListener('canplaythrough', onCanPlay);
-          this.audio.addEventListener('error', onError);
-        });
-      }
-
-      pause() {
-        try {
-          if (this.audio) {
-            this.audio.pause();
-          }
-          this.isPlaying = false;
-          this.playBtn.textContent = "▶️";
-          document.getElementById('music-animation').classList.remove('playing');
-        } catch (error) {
-          console.error('Pause error:', error);
-        }
-      }
-
-      stop() {
-        try {
-          this.pause();
-          if (this.audio) {
-            this.audio.currentTime = 0;
-          }
-        } catch (error) {
-          console.error('Stop error:', error);
-        }
-      }
-
-      async toggle() {
-        if (this.isPlaying) {
-          this.pause();
-        } else {
-          await this.play();
-        }
-      }
-
-      nextTrack() {
-        try {
-          const nextIndex = this.isShuffleOn 
-            ? Math.floor(Math.random() * this.playlist.length)
-            : (this.currentTrack + 1) % this.playlist.length;
-
-          const wasPlaying = this.isPlaying;
-          this.loadTrack(nextIndex);
-
-          // Auto play setelah track dimuat
-          const playWhenReady = () => {
-            if (this.audio.readyState >= 2) {
-              this.play().catch(console.error);
-            } else {
-              setTimeout(playWhenReady, 100);
-            }
-          };
-
-          if (wasPlaying) {
-            setTimeout(playWhenReady, 500);
-          }
-        } catch (error) {
-          console.error('Next track error:', error);
-        }
-      }
-
-      previousTrack() {
-        try {
-          const prevIndex = this.isShuffleOn
-            ? Math.floor(Math.random() * this.playlist.length)
-            : (this.currentTrack - 1 + this.playlist.length) % this.playlist.length;
-
-          const wasPlaying = this.isPlaying;
-          this.loadTrack(prevIndex);
-
-          // Auto play setelah track dimuat
-          const playWhenReady = () => {
-            if (this.audio.readyState >= 2) {
-              this.play().catch(console.error);
-            } else {
-              setTimeout(playWhenReady, 100);
-            }
-          };
-
-          if (wasPlaying) {
-            setTimeout(playWhenReady, 500);
-          }
-        } catch (error) {
-          console.error('Previous track error:', error);
-        }
-      }
-
-      toggleShuffle() {
-        this.isShuffleOn = !this.isShuffleOn;
-        const shuffleBtn = document.querySelector('.music-control-btn:last-child');
-        if (shuffleBtn) {
-          shuffleBtn.classList.toggle('shuffle-active', this.isShuffleOn);
-        }
-      }
-
-      setVolume(value) {
-        try {
-          if (!this.audio) return;
-
-          const volume = Math.max(0, Math.min(1, value / 100));
-          this.audio.volume = volume;
-
-          // Update volume icon
-          const volumeIcon = document.querySelector('.volume-icon');
-          if (volumeIcon) {
-            if (volume === 0) {
-              volumeIcon.textContent = '🔇';
-            } else if (volume < 0.3) {
-              volumeIcon.textContent = '🔈';
-            } else if (volume < 0.7) {
-              volumeIcon.textContent = '🔉';
-            } else {
-              volumeIcon.textContent = '🔊';
-            }
-          }
-        } catch (error) {
-          console.error('Volume error:', error);
-        }
-      }
-
-      seek(percent) {
-        try {
-          if (this.audio && this.audio.duration && !isNaN(this.audio.duration)) {
-            this.audio.currentTime = Math.max(0, Math.min(this.audio.duration, percent * this.audio.duration));
-          }
-        } catch (error) {
-          console.error('Seek error:', error);
-        }
-      }
-
-      updateProgress() {
-        try {
-          const timeDisplay = document.getElementById('music-time');
-          const progressFill = document.getElementById('progress-fill');
-
-          if (!timeDisplay || !progressFill || !this.audio) return;
-
-          if (this.audio.duration && !isNaN(this.audio.duration) && this.audio.currentTime !== undefined) {
-            const current = this.formatTime(this.audio.currentTime);
-            const total = this.formatTime(this.audio.duration);
-            timeDisplay.textContent = `${current} / ${total}`;
-
-            const progress = (this.audio.currentTime / this.audio.duration) * 100;
-            progressFill.style.width = Math.min(100, Math.max(0, progress)) + '%';
-          } else {
-            timeDisplay.textContent = '00:00 / 00:00';
-            progressFill.style.width = '0%';
-          }
-        } catch (error) {
-          // Silent error for progress updates
-        }
-      }
-
-      formatTime(seconds) {
-        if (!seconds || isNaN(seconds)) return '00:00';
-        const mins = Math.floor(seconds / 60);
-        const secs = Math.floor(seconds % 60);
-        return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-      }
-    }
-
-    // Initialize audio players
-    let audioPlayer;
-
-    // Initialize audio player without autoplay
-    function initializeAudioPlayer() {
-      if (!audioPlayer) {
-        audioPlayer = new RobustAudioPlayer();
-        console.log('Audio player initialized');
-        // Set default display message
-        document.getElementById('track-name').textContent = 'Klik untuk memutar musik';
-        document.getElementById('track-artist').textContent = 'Tekan tombol play untuk memulai';
-      }
-    }
-
-    // Initialize on page load without autoplay
-    document.addEventListener('DOMContentLoaded', function() {
-      initializeAudioPlayer();
-    });
-
-    // Initialize player on first user interaction (without autoplay)
-    ['click', 'touchstart', 'keydown'].forEach(event => {
-      document.addEventListener(event, function() {
-        initializeAudioPlayer();
-      }, { once: true });
-    });
-
-    // Global functions for UI
-    function toggleMusic() {
-      try {
-        if (!audioPlayer) {
-          audioPlayer = new RobustAudioPlayer();
-          setTimeout(() => {
-            audioPlayer.toggle().catch(console.error);
-          }, 300);
-        } else {
-          audioPlayer.toggle().catch(console.error);
-        }
-      } catch (error) {
-        console.error('Toggle music error:', error);
-      }
-    }
-
-    function nextTrack() {
-      try {
-        if (audioPlayer) {
-          audioPlayer.nextTrack();
-        }
-      } catch (error) {
-        console.error('Next track error:', error);
-      }
-    }
-
-    function previousTrack() {
-      try {
-        if (audioPlayer) {
-          audioPlayer.previousTrack();
-        }
-      } catch (error) {
-        console.error('Previous track error:', error);
-      }
-    }
-
-    function toggleShuffle() {
-      try {
-        if (audioPlayer) {
-          audioPlayer.toggleShuffle();
-        }
-      } catch (error) {
-        console.error('Toggle shuffle error:', error);
-      }
-    }
-
-    // Enhanced Typing effect with smooth transitions
-    const typing = document.getElementById("typing");
-    const texts = [
-      "🤖 Script Bot WhatsApp GRATIS tersedia disini!",
-      "⚡ Auto Reaction Story dengan fitur canggih & mudah digunakan",
-      "🎯 Download script premium tanpa bayar, join grup sekarang!",
-      "🔥 Bot automation terlengkap - Auto read, react, dan banyak lagi",
-      "💎 Source code berkualitas tinggi untuk semua kebutuhan bot"
-    ];
-    let typingIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    let isWaiting = false;
-
-    function typeEffect() {
-      const current = texts[typingIndex];
-      
-      // Show cursor blinking only when not typing/deleting
-      const cursor = (isWaiting || (!isDeleting && charIndex === current.length)) ? 
-        (Date.now() % 1000 < 500 ? "|" : " ") : "|";
-      
-      // Update text content
-      typing.textContent = current.substring(0, charIndex) + cursor;
-      
-      if (isWaiting) {
-        // Wait period before starting to delete
-        isWaiting = false;
-        isDeleting = true;
-        setTimeout(typeEffect, 2000); // Wait 2 seconds before deleting
-      } else if (!isDeleting && charIndex < current.length) {
-        // Typing phase
-        charIndex++;
-        setTimeout(typeEffect, Math.random() * 50 + 80); // Variable typing speed 80-130ms
-      } else if (!isDeleting && charIndex === current.length) {
-        // Finished typing, start waiting period
-        isWaiting = true;
-        setTimeout(typeEffect, 100);
-      } else if (isDeleting && charIndex > 0) {
-        // Deleting phase
-        charIndex--;
-        setTimeout(typeEffect, Math.random() * 30 + 40); // Variable deleting speed 40-70ms
-      } else if (isDeleting && charIndex === 0) {
-        // Finished deleting, move to next text
-        isDeleting = false;
-        typingIndex = (typingIndex + 1) % texts.length;
-        setTimeout(typeEffect, 500); // Pause before starting new text
-      }
-    }
-    typeEffect();
-
-    // Volume control functionality
-    const volumeSlider = document.getElementById('volume-slider');
-    const volumeValue = document.getElementById('volume-value');
-
-    function updateVolume() {
-      const value = volumeSlider.value;
-      volumeValue.textContent = value + '%';
-
-      if (audioPlayer) {
-        audioPlayer.setVolume(value);
-      }
-    }
-
-    volumeSlider.addEventListener('input', updateVolume);
-
-    // Progress bar click handler
-    document.getElementById('progress-bar').addEventListener('click', function(e) {
-      if (audioPlayer) {
-        const rect = this.getBoundingClientRect();
-        const percent = (e.clientX - rect.left) / rect.width;
-        audioPlayer.seek(percent);
-      }
-    });
-
-    // Set initial volume
-    updateVolume();
-
-    function updateTime() {
-      const now = new Date();
-      const dateOptions = { 
-        timeZone: 'Asia/Jakarta',
-        weekday: 'long', 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric' 
-      };
-      document.getElementById("date").textContent = now.toLocaleDateString("id-ID", dateOptions);
-    }
-    updateTime();
-
-    function toggleSpoiler(id) {
-      const content = document.getElementById(id + '-content');
-      const arrow = document.getElementById(id + '-arrow');
-
-      if (content.classList.contains('open')) {
-        content.classList.remove('open');
-        arrow.classList.remove('open');
-      } else {
-        // Close all other spoilers
-        document.querySelectorAll('.spoiler-content').forEach(el => el.classList.remove('open'));
-        document.querySelectorAll('.spoiler-arrow').forEach(el => el.classList.remove('open'));
-
-        // Open current spoiler
-        content.classList.add('open');
-        arrow.classList.add('open');
-      }
-    }
-
-    function updateVisitorCount() {
-      let visitors = localStorage.getItem('visitorCount');
-      let dailyVisitors = localStorage.getItem('dailyVisitors');
-      let pageViews = localStorage.getItem('pageViews');
-      let lastVisitDate = localStorage.getItem('lastVisitDate');
-      let today = new Date().toDateString();
-
-      if (!visitors) {
-        visitors = Math.floor(Math.random() * 1500) + 1200;
-        localStorage.setItem('visitorCount', visitors);
-      } else {
-        visitors = parseInt(visitors) + 1;
-        localStorage.setItem('visitorCount', visitors);
-      }
-
-      if (!pageViews) {
-        pageViews = Math.floor(Math.random() * 5000) + 3000;
-        localStorage.setItem('pageViews', pageViews);
-      } else {
-        pageViews = parseInt(pageViews) + Math.floor(Math.random() * 3) + 1;
-        localStorage.setItem('pageViews', pageViews);
-      }
-
-      if (lastVisitDate !== today) {
-        dailyVisitors = Math.floor(Math.random() * 200) + 50;
-        localStorage.setItem('dailyVisitors', dailyVisitors);
-        localStorage.setItem('lastVisitDate', today);
-      } else if (!dailyVisitors) {
-        dailyVisitors = Math.floor(Math.random() * 200) + 50;
-        localStorage.setItem('dailyVisitors', dailyVisitors);
-      } else {
-        dailyVisitors = parseInt(dailyVisitors) + 1;
-        localStorage.setItem('dailyVisitors', dailyVisitors);
-      }
-
-      document.getElementById('visitor-count').textContent = visitors.toLocaleString('id-ID');
-      document.getElementById('daily-visitors').textContent = dailyVisitors.toLocaleString('id-ID');
-      document.getElementById('page-views').textContent = pageViews.toLocaleString('id-ID');
-    }
-    updateVisitorCount();
-
-    function updateServerStats() {
-      // Simulate server status
-      const serverStatus = document.getElementById('server-status');
-      const loadTime = document.getElementById('load-time');
-      const uptime = document.getElementById('uptime');
-      
-      // Random server metrics
-      const uptimePercent = (99.8 + Math.random() * 0.2).toFixed(1);
-      const loadTimeMs = (0.5 + Math.random() * 0.8).toFixed(1);
-      
-      serverStatus.textContent = 'Online';
-      serverStatus.style.color = '#1db954';
-      loadTime.textContent = loadTimeMs + 's';
-      uptime.textContent = uptimePercent + '%';
-    }
-    updateServerStats();
-
-    async function updateWeather() {
-      try {
-        // Mendapatkan waktu Jakarta yang akurat
-        const jakartaTime = new Intl.DateTimeFormat('en-CA', {
-          timeZone: 'Asia/Jakarta',
-          hour12: false,
-          hour: '2-digit',
-          minute: '2-digit'
-        }).format(new Date());
-
-        const hour = parseInt(jakartaTime.split(':')[0]);
-        console.log(`Waktu Jakarta sekarang: ${jakartaTime} (jam: ${hour})`);
-
-        let weatherData;
-
-        if (hour >= 5 && hour < 11) {
-          // Pagi (05:00 - 10:59)
-          const morningWeather = [
-            { temp: '26°C', condition: 'Cerah Pagi' },
-            { temp: '27°C', condition: 'Sedikit Berawan' },
-            { temp: '25°C', condition: 'Kabut Pagi' },
-            { temp: '28°C', condition: 'Hangat Pagi' }
-          ];
-          weatherData = morningWeather[Math.floor(Math.random() * morningWeather.length)];
-        } else if (hour >= 11 && hour < 15) {
-          // Siang (11:00 - 14:59)
-          const afternoonWeather = [
-            { temp: '32°C', condition: 'Cerah Terik' },
-            { temp: '33°C', condition: 'Panas Siang' },
-            { temp: '31°C', condition: 'Berawan Siang' },
-            { temp: '34°C', condition: 'Sangat Panas' }
-          ];
-          weatherData = afternoonWeather[Math.floor(Math.random() * afternoonWeather.length)];
-        } else if (hour >= 15 && hour < 18) {
-          // Sore (15:00 - 17:59)
-          const eveningWeather = [
-            { temp: '30°C', condition: 'Cerah Sore' },
-            { temp: '29°C', condition: 'Berawan Sore' },
-            { temp: '28°C', condition: 'Angin Sore' },
-            { temp: '31°C', condition: 'Hangat Sore' }
-          ];
-          weatherData = eveningWeather[Math.floor(Math.random() * eveningWeather.length)];
-        } else if (hour >= 18 && hour < 22) {
-          // Petang (18:00 - 21:59)
-          const nightWeather = [
-            { temp: '27°C', condition: 'Sejuk Petang' },
-            { temp: '26°C', condition: 'Berawan Petang' },
-            { temp: '28°C', condition: 'Hangat Petang' },
-            { temp: '25°C', condition: 'Angin Petang' }
-          ];
-          weatherData = nightWeather[Math.floor(Math.random() * nightWeather.length)];
-        } else {
-          // Malam (22:00 - 04:59)
-          const lateNightWeather = [
-            { temp: '24°C', condition: 'Sejuk Malam' },
-            { temp: '23°C', condition: 'Dingin Malam' },
-            { temp: '25°C', condition: 'Berawan Malam' },
-            { temp: '22°C', condition: 'Sangat Sejuk' }
-          ];
-          weatherData = lateNightWeather[Math.floor(Math.random() * lateNightWeather.length)];
-        }
-
-        document.getElementById('weather').textContent = `${weatherData.temp} ${weatherData.condition}`;
-      } catch (error) {
-        console.error('Error getting Jakarta weather:', error);
-        document.getElementById('weather').textContent = '30°C Cerah';
-      }
-    }
-    updateWeather();
-
-    function toggleTheme() {
-      const body = document.body;
-      const current = body.getAttribute("data-theme");
-      const next = current === "dark" ? "light" : "dark";
-      body.setAttribute("data-theme", next);
-    }
-
-    // YouTube API functionality
-    let youtubePlayer = null;
-    let isMuted = false;
-
-    // Load YouTube API
-    function loadYouTubeAPI() {
-      if (window.YT) return;
-
-      const tag = document.createElement('script');
-      tag.src = 'https://www.youtube.com/iframe_api';
-      const firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    }
-
-    // Initialize YouTube player when API is ready
-    window.onYouTubeIframeAPIReady = function() {
-      console.log('YouTube API loaded');
-    };
-
-    // Video control functions
-    function playVideo() {
-      try {
-        if (youtubePlayer) {
-          youtubePlayer.playVideo();
-        } else {
-          // Fallback: try to communicate with iframe
-          const iframe = document.getElementById('youtube-player');
-          if (iframe) {
-            iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-          }
-        }
-      } catch (error) {
-        console.error('Play video error:', error);
-      }
-    }
-
-    function pauseVideo() {
-      try {
-        if (youtubePlayer) {
-          youtubePlayer.pauseVideo();
-        } else {
-          const iframe = document.getElementById('youtube-player');
-          if (iframe) {
-            iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
-          }
-        }
-      } catch (error) {
-        console.error('Pause video error:', error);
-      }
-    }
-
-    function stopVideo() {
-      try {
-        if (youtubePlayer) {
-          youtubePlayer.stopVideo();
-        } else {
-          const iframe = document.getElementById('youtube-player');
-          if (iframe) {
-            iframe.contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*');
-          }
-        }
-      } catch (error) {
-        console.error('Stop video error:', error);
-      }
-    }
-
-    function toggleVideoMute() {
-      try {
-        if (youtubePlayer) {
-          if (isMuted) {
-            youtubePlayer.unMute();
-            isMuted = false;
-          } else {
-            youtubePlayer.mute();
-            isMuted = true;
-          }
-        } else {
-          const iframe = document.getElementById('youtube-player');
-          if (iframe) {
-            if (isMuted) {
-              iframe.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
-              isMuted = false;
-            } else {
-              iframe.contentWindow.postMessage('{"event":"command","func":"mute","args":""}', '*');
-              isMuted = true;
-            }
-          }
-        }
-
-        // Update button text
-        const muteBtn = document.querySelector('.video-btn:last-child');
-        if (muteBtn) {
-          muteBtn.textContent = isMuted ? '🔊 Unmute' : '🔇 Mute';
-        }
-      } catch (error) {
-        console.error('Toggle video mute error:', error);
-      }
-    }
-
-    // Video Music Player Functions
-
-    // Load YouTube API when page loads
-    loadYouTubeAPI();
-
-    // Cleanup on page visibility change and unload
-    document.addEventListener("visibilitychange", () => {
-      if (document.hidden) {
-        if (audioPlayer) {
-          audioPlayer.pause();
-        }
-        if (youtubePlayer) {
-          youtubePlayer.pauseVideo();
-        }
-      }
-    });
-
-    window.addEventListener("beforeunload", () => {
-      if (audioPlayer) {
-        audioPlayer.pause();
-      }
-      if (youtubePlayer) {
-        youtubePlayer.stopVideo();
-      }
-    });
-  </script>
-
+  <script src="main.js"></script>
+  <script src="music-player.js"></script>
 </body>
 </html>

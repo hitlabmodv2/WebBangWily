@@ -138,6 +138,33 @@
             overflow: hidden;
         }
 
+        .interactive-card {
+            cursor: pointer;
+            position: relative;
+        }
+
+        .interactive-card:hover .card-button {
+            background: var(--accent-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .card-button {
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid var(--gray-bar);
+            opacity: 0.8;
+        }
+
         .overview-card::before {
             content: '';
             position: absolute;
@@ -352,6 +379,155 @@
             transform: translateY(-3px) scale(1.1);
             box-shadow: 0 8px 25px rgba(29, 185, 84, 0.4);
             background: linear-gradient(135deg, #1ed760, var(--accent-color));
+        }
+
+        /* Modal Styles */
+        .stat-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: var(--card-color);
+            border: 2px solid var(--gray-bar);
+            border-radius: 20px;
+            margin: 5% auto;
+            padding: 0;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--accent-color), rgba(111, 66, 193, 0.8));
+            color: white;
+            padding: 20px 25px;
+            border-radius: 18px 18px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .close-modal {
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .close-modal:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            padding: 25px;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .modal-footer {
+            padding: 20px 25px;
+            border-top: 1px solid var(--gray-bar);
+            text-align: right;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 0 0 18px 18px;
+        }
+
+        .modal-button {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .modal-button:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(111, 66, 193, 0.4);
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .detail-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--gray-bar);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .detail-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 5px;
+        }
+
+        .detail-label {
+            font-size: 0.9rem;
+            color: var(--subtext-color);
+        }
+
+        .progress-chart {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            height: 8px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill-modal {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #9d4edd);
+            border-radius: 10px;
+            transition: width 1s ease;
         }
 
         .footer {
@@ -728,60 +904,84 @@
         </div>
 
         <div class="stats-overview">
-            <div class="overview-card">
+            <div class="overview-card interactive-card" onclick="showStatDetail('visitors')">
                 <span class="overview-icon">👥</span>
                 <div class="overview-title">Total Pengunjung</div>
                 <div class="overview-value" id="total-visitors">Loading...</div>
                 <div class="overview-description">Akumulasi seluruh visitor yang pernah mengakses website</div>
+                <div class="card-button">Lihat Detail ▼</div>
             </div>
 
-            <div class="overview-card">
+            <div class="overview-card interactive-card" onclick="showStatDetail('daily')">
                 <span class="overview-icon">🔥</span>
                 <div class="overview-title">Visitors Hari Ini</div>
                 <div class="overview-value" id="daily-visitors">Loading...</div>
                 <div class="overview-description">Pengunjung unik yang mengakses hari ini</div>
+                <div class="card-button">Lihat Detail ▼</div>
             </div>
 
-            <div class="overview-card">
+            <div class="overview-card interactive-card" onclick="showStatDetail('pageviews')">
                 <span class="overview-icon">📊</span>
                 <div class="overview-title">Page Views</div>
                 <div class="overview-value" id="page-views">Loading...</div>
                 <div class="overview-description">Total halaman yang telah dilihat</div>
+                <div class="card-button">Lihat Detail ▼</div>
             </div>
 
-            <div class="overview-card">
+            <div class="overview-card interactive-card" onclick="showStatDetail('uptime')">
                 <span class="overview-icon">⚡</span>
                 <div class="overview-title">Website Uptime</div>
                 <div class="overview-value" id="uptime">99.9%</div>
                 <div class="overview-description">Persentase waktu website online</div>
+                <div class="card-button">Lihat Detail ▼</div>
             </div>
 
-            <div class="overview-card">
+            <div class="overview-card interactive-card" onclick="showStatDetail('revenue')">
                 <span class="overview-icon">💰</span>
                 <div class="overview-title">Total Revenue</div>
                 <div class="overview-value">$15.2K</div>
                 <div class="overview-description">Pendapatan dari script & konsultasi</div>
+                <div class="card-button">Lihat Detail ▼</div>
             </div>
 
-            <div class="overview-card">
+            <div class="overview-card interactive-card" onclick="showStatDetail('downloads')">
                 <span class="overview-icon">⬇️</span>
                 <div class="overview-title">Total Downloads</div>
                 <div class="overview-value" id="total-downloads">Loading...</div>
                 <div class="overview-description">Script bot yang telah didownload</div>
+                <div class="card-button">Lihat Detail ▼</div>
             </div>
 
-            <div class="overview-card">
+            <div class="overview-card interactive-card" onclick="showStatDetail('bots')">
                 <span class="overview-icon">🤖</span>
                 <div class="overview-title">Active Bots</div>
                 <div class="overview-value">127</div>
                 <div class="overview-description">Bot WhatsApp yang sedang aktif</div>
+                <div class="card-button">Lihat Detail ▼</div>
             </div>
 
-            <div class="overview-card">
+            <div class="overview-card interactive-card" onclick="showStatDetail('rating')">
                 <span class="overview-icon">🌟</span>
                 <div class="overview-title">User Rating</div>
                 <div class="overview-value">4.9★</div>
                 <div class="overview-description">Rating dari 1,245 pengguna</div>
+                <div class="card-button">Lihat Detail ▼</div>
+            </div>
+        </div>
+
+        <!-- Modal untuk menampilkan detail statistik -->
+        <div class="stat-modal" id="statModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalTitle">Detail Statistik</h3>
+                    <span class="close-modal" onclick="closeStatModal()">&times;</span>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <!-- Content akan diisi oleh JavaScript -->
+                </div>
+                <div class="modal-footer">
+                    <button class="modal-button" onclick="closeStatModal()">Tutup</button>
+                </div>
             </div>
         </div>
 
@@ -1314,6 +1514,283 @@
 
         // Initialize scroll to top button state
         handleScrollToTop();
+
+        // Statistics detail data
+        const statDetails = {
+            visitors: {
+                title: "👥 Detail Total Pengunjung",
+                content: `
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <div class="detail-value">${Math.floor(Math.random() * 500) + 800}</div>
+                            <div class="detail-label">Pengunjung Bulan Ini</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value">${Math.floor(Math.random() * 200) + 150}</div>
+                            <div class="detail-label">Pengunjung Minggu Ini</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value">${Math.floor(Math.random() * 30) + 20}</div>
+                            <div class="detail-label">Rata-rata Harian</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value">85%</div>
+                            <div class="detail-label">Pengunjung Baru</div>
+                        </div>
+                    </div>
+                    <h4>📈 Trend Pengunjung</h4>
+                    <p>• Peningkatan 23% dari bulan sebelumnya</p>
+                    <p>• Peak traffic jam 19:00-21:00 WIB</p>
+                    <p>• Device terpopuler: Mobile (75%)</p>
+                    <p>• Negara teratas: Indonesia, Malaysia, Singapura</p>
+                `
+            },
+            daily: {
+                title: "🔥 Detail Visitors Hari Ini",
+                content: `
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <div class="detail-value">${Math.floor(Math.random() * 50) + 20}</div>
+                            <div class="detail-label">Jam Terakhir</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value">${Math.floor(Math.random() * 8) + 3}</div>
+                            <div class="detail-label">Online Sekarang</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value">2.4 min</div>
+                            <div class="detail-label">Avg Session</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value">65%</div>
+                            <div class="detail-label">Return Visitors</div>
+                        </div>
+                    </div>
+                    <h4>⏰ Timeline Hari Ini</h4>
+                    <p>• 06:00-09:00: 15% traffic</p>
+                    <p>• 09:00-12:00: 25% traffic</p>
+                    <p>• 12:00-15:00: 20% traffic</p>
+                    <p>• 15:00-18:00: 20% traffic</p>
+                    <p>• 18:00-21:00: 20% traffic (peak)</p>
+                `
+            },
+            pageviews: {
+                title: "📊 Detail Page Views",
+                content: `
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <div class="detail-value">2.8</div>
+                            <div class="detail-label">Pages per Session</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value">45%</div>
+                            <div class="detail-label">Bounce Rate</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value">3:24</div>
+                            <div class="detail-label">Avg Duration</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value">125</div>
+                            <div class="detail-label">Today's Views</div>
+                        </div>
+                    </div>
+                    <h4>📄 Halaman Terpopuler</h4>
+                    <p>• Homepage: 45% dari total views</p>
+                    <p>• Download Page: 25% dari total views</p>
+                    <p>• Statistics: 15% dari total views</p>
+                    <p>• Contact: 10% dari total views</p>
+                    <p>• Other Pages: 5% dari total views</p>
+                `
+            },
+            uptime: {
+                title: "⚡ Detail Website Uptime",
+                content: `
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <div class="detail-value">99.9%</div>
+                            <div class="detail-label">Uptime Bulan Ini</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value">100%</div>
+                            <div class="detail-label">Uptime Minggu Ini</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value">0.8s</div>
+                            <div class="detail-label">Response Time</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value">45ms</div>
+                            <div class="detail-label">Ping Time</div>
+                        </div>
+                    </div>
+                    <h4>🌐 Server Performance</h4>
+                    <p>• Last downtime: 2 hari yang lalu (5 menit)</p>
+                    <p>• CDN status: Active & Optimized</p>
+                    <p>• Server location: Singapore</p>
+                    <p>• SSL certificate: Valid hingga 2025</p>
+                    <p>• Monitoring: 24/7 automated</p>
+                `
+            },
+            revenue: {
+                title: "💰 Detail Total Revenue",
+                content: `
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <div class="detail-value">$2.4K</div>
+                            <div class="detail-label">Bulan Ini</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value">$645</div>
+                            <div class="detail-label">Minggu Ini</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value">35</div>
+                            <div class="detail-label">Active Clients</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value">$125</div>
+                            <div class="detail-label">Avg per Client</div>
+                        </div>
+                    </div>
+                    <h4>💼 Sumber Pendapatan</h4>
+                    <p>• Script Premium: 45% ($6.8K)</p>
+                    <p>• Konsultasi Bot: 30% ($4.5K)</p>
+                    <p>• Custom Development: 20% ($3.0K)</p>
+                    <p>• Maintenance & Support: 5% ($0.9K)</p>
+                    <div class="progress-chart">
+                        <div class="progress-fill-modal" style="width: 78%"></div>
+                    </div>
+                `
+            },
+            downloads: {
+                title: "⬇️ Detail Total Downloads",
+                content: `
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <div class="detail-value">${Math.floor(Math.random() * 200) + 150}</div>
+                            <div class="detail-label">Download Bulan Ini</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value">${Math.floor(Math.random() * 50) + 25}</div>
+                            <div class="detail-label">Download Hari Ini</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value">78</div>
+                            <div class="detail-label">Total Scripts</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value">4.8★</div>
+                            <div class="detail-label">Avg Rating</div>
+                        </div>
+                    </div>
+                    <h4>📱 Script Terpopuler</h4>
+                    <p>• Auto Story Reaction: 2,456 downloads</p>
+                    <p>• WhatsApp Bot Base: 1,834 downloads</p>
+                    <p>• Auto Read Messages: 1,245 downloads</p>
+                    <p>• Group Management: 987 downloads</p>
+                    <p>• Custom Commands: 756 downloads</p>
+                `
+            },
+            bots: {
+                title: "🤖 Detail Active Bots",
+                content: `
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <div class="detail-value">127</div>
+                            <div class="detail-label">Total Active Bots</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value">89</div>
+                            <div class="detail-label">Premium Bots</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value">38</div>
+                            <div class="detail-label">Free Bots</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value">98.5%</div>
+                            <div class="detail-label">Success Rate</div>
+                        </div>
+                    </div>
+                    <h4>⚙️ Bot Performance</h4>
+                    <p>• Auto Story Bots: 45 active</p>
+                    <p>• Group Manager Bots: 32 active</p>
+                    <p>• Auto Reply Bots: 28 active</p>
+                    <p>• Custom Function Bots: 22 active</p>
+                    <p>• Uptime rata-rata: 99.2%</p>
+                `
+            },
+            rating: {
+                title: "🌟 Detail User Rating",
+                content: `
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <div class="detail-value">4.9★</div>
+                            <div class="detail-label">Overall Rating</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value">1,245</div>
+                            <div class="detail-label">Total Reviews</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value">95%</div>
+                            <div class="detail-label">5 Star Reviews</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value">98.5%</div>
+                            <div class="detail-label">Satisfaction Rate</div>
+                        </div>
+                    </div>
+                    <h4>⭐ Rating Breakdown</h4>
+                    <p>• 5 Stars: 1,183 reviews (95%)</p>
+                    <p>• 4 Stars: 49 reviews (4%)</p>
+                    <p>• 3 Stars: 8 reviews (0.6%)</p>
+                    <p>• 2 Stars: 3 reviews (0.2%)</p>
+                    <p>• 1 Star: 2 reviews (0.2%)</p>
+                    <div class="progress-chart">
+                        <div class="progress-fill-modal" style="width: 95%"></div>
+                    </div>
+                `
+            }
+        };
+
+        // Function to show statistic detail
+        function showStatDetail(statType) {
+            const modal = document.getElementById('statModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+            
+            const detail = statDetails[statType];
+            if (detail) {
+                modalTitle.textContent = detail.title;
+                modalBody.innerHTML = detail.content;
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        // Function to close modal
+        function closeStatModal() {
+            const modal = document.getElementById('statModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('statModal');
+            if (event.target === modal) {
+                closeStatModal();
+            }
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeStatModal();
+            }
+        });
     </script>
 </body>
 </html>
