@@ -138,13 +138,52 @@
     }
 
     .music-player-content {
-      background: linear-gradient(135deg, var(--card-color), rgba(255, 255, 255, 0.05));
+      background: 
+        linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)),
+        url('https://files.catbox.moe/9cq0yk.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
       border-radius: 15px;
       padding: 20px;
       border: 1px solid var(--gray-bar);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
       backdrop-filter: blur(10px);
       max-width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    [data-theme="light"] .music-player-content {
+      background: 
+        linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.6)),
+        url('https://files.catbox.moe/9cq0yk.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .music-player-content::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, 
+        rgba(29, 185, 84, 0.1) 0%, 
+        rgba(255, 107, 107, 0.1) 25%,
+        rgba(75, 192, 192, 0.1) 50%,
+        rgba(255, 193, 7, 0.1) 75%,
+        rgba(156, 39, 176, 0.1) 100%);
+      border-radius: 15px;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .music-player-content > * {
+      position: relative;
+      z-index: 2;
     }
 
     .music-controls {
@@ -407,24 +446,99 @@
     }
 
     .spoiler-container {
-      margin: 12px 0;
+      margin: 20px 0;
+      border-radius: 16px;
+      overflow: hidden;
+      background: linear-gradient(135deg, 
+        rgba(29, 185, 84, 0.12) 0%, 
+        rgba(255, 107, 107, 0.12) 25%,
+        rgba(75, 192, 192, 0.12) 50%,
+        rgba(255, 193, 7, 0.12) 75%,
+        rgba(156, 39, 176, 0.12) 100%);
+      backdrop-filter: blur(20px);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 
+        0 12px 40px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .spoiler-container:hover {
+      transform: translateY(-2px);
+      box-shadow: 
+        0 16px 50px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    [data-theme="light"] .spoiler-container {
+      background: linear-gradient(135deg, 
+        rgba(74, 144, 226, 0.08) 0%, 
+        rgba(80, 227, 194, 0.08) 25%,
+        rgba(245, 166, 35, 0.08) 50%,
+        rgba(233, 30, 99, 0.08) 75%,
+        rgba(156, 39, 176, 0.08) 100%);
+      border: 2px solid rgba(0, 0, 0, 0.12);
+      box-shadow: 
+        0 12px 40px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    [data-theme="light"] .spoiler-container:hover {
+      box-shadow: 
+        0 16px 50px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+      border-color: rgba(0, 0, 0, 0.18);
+    }
+
+    .spoiler-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, 
+        rgba(255, 255, 255, 0.05) 0%, 
+        transparent 25%,
+        rgba(255, 255, 255, 0.02) 50%,
+        transparent 75%,
+        rgba(255, 255, 255, 0.05) 100%);
+      border-radius: 18px;
+      z-index: 1;
+      pointer-events: none;
     }
 
     .spoiler-header {
-      background: linear-gradient(135deg, var(--button-color), var(--button-hover));
-      padding: 15px 20px;
-      border-radius: 15px;
+      background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.15) 0%, 
+        rgba(255, 255, 255, 0.08) 100%);
+      padding: 20px 28px;
       color: var(--text-color);
       display: flex;
       align-items: center;
       justify-content: space-between;
       cursor: pointer;
-      transition: all 0.4s ease;
-      font-weight: 500;
-      border: 2px solid transparent;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      font-weight: 700;
+      font-size: 15px;
       position: relative;
-      overflow: hidden;
+      z-index: 2;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    [data-theme="light"] .spoiler-header {
+      background: linear-gradient(135deg, 
+        rgba(0, 0, 0, 0.1) 0%, 
+        rgba(0, 0, 0, 0.06) 100%);
+      border-bottom: 2px solid rgba(0, 0, 0, 0.12);
+      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
     }
 
     .spoiler-header::before {
@@ -434,8 +548,12 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-      transition: left 0.5s;
+      background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.15), 
+        transparent);
+      transition: left 0.6s;
+      z-index: -1;
     }
 
     .spoiler-header:hover::before {
@@ -443,15 +561,26 @@
     }
 
     .spoiler-header:hover {
-      background: linear-gradient(135deg, var(--button-hover), #7a7a7a);
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-      border-color: var(--gray-bar);
+      background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.22) 0%, 
+        rgba(255, 255, 255, 0.12) 100%);
+      transform: translateY(-1px);
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+      border-bottom-color: rgba(255, 255, 255, 0.25);
+    }
+
+    [data-theme="light"] .spoiler-header:hover {
+      background: linear-gradient(135deg, 
+        rgba(0, 0, 0, 0.15) 0%, 
+        rgba(0, 0, 0, 0.08) 100%);
+      text-shadow: 0 2px 8px rgba(255, 255, 255, 0.9);
+      border-bottom-color: rgba(0, 0, 0, 0.18);
     }
 
     .spoiler-arrow {
-      transition: transform 0.3s ease;
-      font-size: 12px;
+      transition: transform 0.4s ease;
+      font-size: 14px;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
     }
 
     .spoiler-arrow.open {
@@ -461,38 +590,107 @@
     .spoiler-content {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.3s ease, padding 0.3s ease;
-      background: var(--card-color);
-      border-radius: 0 0 15px 15px;
-      margin-top: -15px;
-      padding-top: 15px;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+      background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.05) 0%, 
+        rgba(255, 255, 255, 0.02) 100%);
+      position: relative;
+      z-index: 2;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    [data-theme="light"] .spoiler-content {
+      background: linear-gradient(135deg, 
+        rgba(0, 0, 0, 0.04) 0%, 
+        rgba(0, 0, 0, 0.02) 100%);
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
     }
 
     .spoiler-content.open {
-      max-height: 400px;
-      padding: 20px;
-      border: 2px solid var(--gray-bar);
-      border-top: none;
+      max-height: 450px;
+      padding: 28px;
       overflow-y: auto;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    [data-theme="light"] .spoiler-content.open {
+      border-top: 1px solid rgba(0, 0, 0, 0.12);
     }
 
     .spoiler-info {
-      font-size: 13px;
+      font-size: 14px;
       color: var(--subtext-color);
-      line-height: 1.7;
+      line-height: 1.8;
       word-wrap: break-word;
       overflow-wrap: break-word;
       white-space: normal;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 24px;
+      border-radius: 12px;
+      border: 2px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(15px);
+      box-shadow: 
+        inset 0 2px 8px rgba(0, 0, 0, 0.2),
+        0 4px 16px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .spoiler-info:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.18);
+      transform: translateY(-1px);
+      box-shadow: 
+        inset 0 2px 8px rgba(0, 0, 0, 0.2),
+        0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    [data-theme="light"] .spoiler-info {
+      background: rgba(0, 0, 0, 0.04);
+      border: 2px solid rgba(0, 0, 0, 0.1);
+      box-shadow: 
+        inset 0 2px 8px rgba(0, 0, 0, 0.08),
+        0 4px 16px rgba(0, 0, 0, 0.05);
+    }
+
+    [data-theme="light"] .spoiler-info:hover {
+      background: rgba(0, 0, 0, 0.06);
+      border-color: rgba(0, 0, 0, 0.14);
+      box-shadow: 
+        inset 0 2px 8px rgba(0, 0, 0, 0.08),
+        0 6px 20px rgba(0, 0, 0, 0.08);
     }
 
     .spoiler-info strong {
       color: var(--text-color);
       display: block;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     }
 
     .spoiler-info br {
-      line-height: 2;
+      line-height: 2.2;
+    }
+
+    .spoiler-info a {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: linear-gradient(135deg, #25d366, #1db954);
+      color: white;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    .spoiler-info a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+      background: linear-gradient(135deg, #1db954, #25d366);
     }
 
     .video-player-content {
@@ -732,19 +930,40 @@
     }
 
     @media (max-width: 480px) {
+      .spoiler-container {
+        margin: 15px 0;
+        border-radius: 18px;
+      }
+
       .spoiler-content.open {
-        max-height: 450px;
-        padding: 18px;
+        max-height: 500px;
+        padding: 20px;
         overflow-y: auto;
       }
 
       .spoiler-info {
-        font-size: 12px;
-        line-height: 1.8;
+        font-size: 13px;
+        line-height: 1.7;
+        padding: 18px;
+      }
+
+      .spoiler-info strong {
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
+
+      .spoiler-info a {
+        padding: 8px 16px;
+        font-size: 13px;
+        margin-top: 12px;
       }
 
       .spoiler-header {
-        padding: 14px 16px;
+        padding: 16px 20px;
+        font-size: 13px;
+      }
+
+      .spoiler-arrow {
         font-size: 13px;
       }
 
@@ -930,7 +1149,7 @@
 
     <div class="spoiler-container">
       <div class="spoiler-header" onclick="toggleSpoiler('whatsapp')">
-        <span>📱 WhatsApp</span>
+        <span>📱 Nomer Owner</span>
         <span class="spoiler-arrow" id="whatsapp-arrow">▼</span>
       </div>
       <div class="spoiler-content" id="whatsapp-content">
@@ -998,7 +1217,7 @@
           ⏰ Jadwal waktu auto reaction<br>
           🔧 Setup mudah & konfigurasi simple<br>
           💎 Source code lengkap disertakan<br>
-          <a href="https://pastebin.com/PzHNZVJB" target="_blank" style="color: #6f42c1; text-decoration: none; font-weight: bold;">➤ Download Script</a>
+          <a href="linkdownload.html" style="color: #6f42c1; text-decoration: none; font-weight: bold;">➤ Download Script</a>
         </div>
       </div>
     </div>
@@ -1551,7 +1770,7 @@
       }
     }
 
-    // Typing effect
+    // Enhanced Typing effect with smooth transitions
     const typing = document.getElementById("typing");
     const texts = [
       "🤖 Script Bot WhatsApp GRATIS tersedia disini!",
@@ -1563,20 +1782,40 @@
     let typingIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
+    let isWaiting = false;
 
     function typeEffect() {
       const current = texts[typingIndex];
-      typing.textContent = current.substring(0, charIndex) + (charIndex % 2 === 0 ? "|" : "");
-      if (!isDeleting && charIndex < current.length) {
+      
+      // Show cursor blinking only when not typing/deleting
+      const cursor = (isWaiting || (!isDeleting && charIndex === current.length)) ? 
+        (Date.now() % 1000 < 500 ? "|" : " ") : "|";
+      
+      // Update text content
+      typing.textContent = current.substring(0, charIndex) + cursor;
+      
+      if (isWaiting) {
+        // Wait period before starting to delete
+        isWaiting = false;
+        isDeleting = true;
+        setTimeout(typeEffect, 2000); // Wait 2 seconds before deleting
+      } else if (!isDeleting && charIndex < current.length) {
+        // Typing phase
         charIndex++;
+        setTimeout(typeEffect, Math.random() * 50 + 80); // Variable typing speed 80-130ms
+      } else if (!isDeleting && charIndex === current.length) {
+        // Finished typing, start waiting period
+        isWaiting = true;
         setTimeout(typeEffect, 100);
       } else if (isDeleting && charIndex > 0) {
+        // Deleting phase
         charIndex--;
-        setTimeout(typeEffect, 50);
-      } else {
-        isDeleting = !isDeleting;
-        if (!isDeleting) typingIndex = (typingIndex + 1) % texts.length;
-        setTimeout(typeEffect, 1000);
+        setTimeout(typeEffect, Math.random() * 30 + 40); // Variable deleting speed 40-70ms
+      } else if (isDeleting && charIndex === 0) {
+        // Finished deleting, move to next text
+        isDeleting = false;
+        typingIndex = (typingIndex + 1) % texts.length;
+        setTimeout(typeEffect, 500); // Pause before starting new text
       }
     }
     typeEffect();
